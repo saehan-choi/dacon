@@ -14,11 +14,13 @@ setClass = df['class'].unique()
 #  'hazelnut' 'pill' 'metal_nut' 'zipper' 'leather' 'toothbrush' 'tile'
 #  'grid']
 
-
+add = 0
 for k in setClass:
     checkState = df[df['class']==k]
     checkState = checkState['state'].unique()
     print(k)
     print(len(checkState))
+    add += len(checkState)
     # print(checkState)
 
+print(add)

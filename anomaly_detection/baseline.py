@@ -1,3 +1,4 @@
+import imghdr
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -42,27 +43,43 @@ train_y = pd.read_csv(pathLabel+"train_df.csv")
 train_labels = train_y["label"]
 
 label_unique = sorted(np.unique(train_labels))
+
 label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
-# print(label_unique)
-# {'bottle-broken_large': 0, 'bottle-broken_small': 1, 'bottle-contamination': 2
 
 # print(train_labels)
 # 0       transistor-good
 # 1          capsule-good
+
 # print(label_unique)
 # {'bottle-broken_large': 0, 'bottle-broken_small': 1,...
+# 라벨별로 unique하게 쪼개 놓은거임
 
 train_labels = [label_unique[k] for k in train_labels]
 # print(train_labels)
 # [72, 15, 72, 76, 3, 76, 15, 55, 4...]
+# 단순히 이 숫자들은 label_unique의 숫자에 불과함 ex) 72 -> in label_unique -> transistor-good
+
 
 def img_load(path):
     img = cv2.imread(path)[:,:,::-1]
+    # img = cv2.imread(path) -> 이거는 BGR 로 읽어들임
+    # BGR 을 RGB로 변환
+
+    # print(img.shape)
+    # image shape은 여기임
     img = cv2.resize(img, (512, 512))
+
+    # 값 찍어보고 싶을때 사용 -> 지금은 RGB로 되어있어서 opencv로 읽을땐 BGR로 변환해야함
+    # cv2.imshow('image', img)
+    # cv2.waitKey(0)
     return img
+
+# CROSS VALIDATION 생성 할 것
 
 train_imgs = [img_load(m) for m in tqdm(train_png)]
 test_imgs = [img_load(n) for n in tqdm(test_png)]
+
+print(train_imgs)
 
 class Custom_dataset(Dataset):
     def __init__(self, img_paths, labels, mode='train'):
@@ -75,10 +92,15 @@ class Custom_dataset(Dataset):
         img = self.img_paths[idx]
         if self.mode=='train':
             augmentation = random.randint(0,2)
+            # 0,1,2의 수 중 하나를 반환 augmentation==0 이면 아무것도 안하는듯
             if augmentation==1:
                 img = img[::-1].copy()
+                # 수평변환
+
             elif augmentation==2:
                 img = img[:,::-1].copy()
+                # 수직변환
+
         img = transforms.ToTensor()(img)
         if self.mode=='test':
             pass
