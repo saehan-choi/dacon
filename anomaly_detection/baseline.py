@@ -19,19 +19,42 @@ from sklearn.metrics import f1_score, accuracy_score
 import time
 
 
+# 파이토치에서는 amp를 쓴다는 것은 학습할때
+# torch.cuda.amp.autocast 와 torch.cuda.amp.GradScaler를 같이 쓰는 것을 의미한다.
+# 여튼 두개를 쓰면, 학습할때 성능은 유지(신경망의 수렴이 잘되고)되면서, 
+# GPU 메모리 소모도 줄고, GPU 연산속도도 증가한다. 
+# 얼마나 빨라지냐는 GPU의 architecure마다 다르다. 
+# 가령 Volta, Turing, Ampere는 2~3배. 최신의 Kepler, Maxwell, Pascal은 1~2배정도 빨라진다.
+
+pathTrain = './anomaly_detection/dataset/train/train/'
+pathTest = './anomaly_detection/dataset/test/test/'
+pathLabel = './anomaly_detection/dataset/'
+
 device = torch.device('cuda')
 
-train_png = sorted(glob('train/*.png'))
-test_png = sorted(glob('test/*.png'))
+train_png = sorted(glob(pathTrain+'/*.png'))
+test_png = sorted(glob(pathTest+'/*.png'))
 
-train_y = pd.read_csv("open/train_df.csv")
+
+
+train_y = pd.read_csv(pathLabel+"train_df.csv")
 
 train_labels = train_y["label"]
 
 label_unique = sorted(np.unique(train_labels))
 label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
+# print(label_unique)
+# {'bottle-broken_large': 0, 'bottle-broken_small': 1, 'bottle-contamination': 2
+
+# print(train_labels)
+# 0       transistor-good
+# 1          capsule-good
+# print(label_unique)
+# {'bottle-broken_large': 0, 'bottle-broken_small': 1,...
 
 train_labels = [label_unique[k] for k in train_labels]
+# print(train_labels)
+# [72, 15, 72, 76, 3, 76, 15, 55, 4...]
 
 def img_load(path):
     img = cv2.imread(path)[:,:,::-1]
@@ -95,7 +118,7 @@ criterion = nn.CrossEntropyLoss()
 scaler = torch.cuda.amp.GradScaler() 
 
 
-
+model.train()
 best=0
 for epoch in range(epochs):
     start=time.time()
