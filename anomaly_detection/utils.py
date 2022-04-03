@@ -1,11 +1,13 @@
 import albumentations as A
 import cv2
 
+import imgaug as ia
 import torch
 import numpy as np
 import random
 
 def set_seed(random_seed):
+    ia.seed(random_seed)
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed(random_seed)
     torch.cuda.manual_seed_all(random_seed) # if use multi-GPU
