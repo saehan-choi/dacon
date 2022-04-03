@@ -19,6 +19,7 @@ import torchvision.transforms as transforms
 from sklearn.metrics import f1_score, accuracy_score
 import time
 
+from utils import set_seed, trans_form
 
 # 파이토치에서는 amp를 쓴다는 것은 학습할때
 # torch.cuda.amp.autocast 와 torch.cuda.amp.GradScaler를 같이 쓰는 것을 의미한다.
@@ -26,6 +27,12 @@ import time
 # GPU 메모리 소모도 줄고, GPU 연산속도도 증가한다. 
 # 얼마나 빨라지냐는 GPU의 architecure마다 다르다. 
 # 가령 Volta, Turing, Ampere는 2~3배. 최신의 Kepler, Maxwell, Pascal은 1~2배정도 빨라진다.
+
+seed = 24
+batch_size = 32
+epochs = 2
+
+set_seed(seed)
 
 pathTrain = './anomaly_detection/dataset/train/train/'
 pathTest = './anomaly_detection/dataset/test/test/'
@@ -79,7 +86,6 @@ def img_load(path):
 train_imgs = [img_load(m) for m in tqdm(train_png)]
 test_imgs = [img_load(n) for n in tqdm(test_png)]
 
-print(train_imgs)
 
 class Custom_dataset(Dataset):
     def __init__(self, img_paths, labels, mode='train'):
@@ -116,9 +122,6 @@ class Network(nn.Module):
     def forward(self, x):
         x = self.model(x)
         return x
-
-batch_size = 32
-epochs = 25
 
 # Train
 train_dataset = Custom_dataset(np.array(train_imgs), np.array(train_labels), mode='train')
@@ -190,8 +193,8 @@ f_result = [label_decoder[result] for result in f_pred]
 
 
 # 제출물 생성
-submission = pd.read_csv("open/sample_submission.csv")
+submission = pd.read_csv(pathLabel+"sample_submission.csv")
 
 submission["label"] = f_result
 
-submission.to_csv("baseline.csv", index = False)
+submission.to_csv(pathLabel+"submissions/baseline2.csv", index = False)

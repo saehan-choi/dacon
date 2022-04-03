@@ -1,6 +1,7 @@
 import pandas as pd
 import shutil
 import os
+
 DataPath = './anomaly_detection/dataset/'
 trainDataPath = './anomaly_detection/dataset/train/train/'
 resultPath = './anomaly_detection/dataAnalysis/'
@@ -15,7 +16,7 @@ df = pd.read_csv(DataPath+'train_df.csv')
 setClass = df['class'].unique()
 
 for i in setClass:
-    os.mkdir(resultPath+i)
+    # os.mkdir(resultPath+i)
     fileName = df[df['class'] == i]
     fileName = fileName['file_name'].to_list()
     
