@@ -34,8 +34,8 @@ epochs = 2
 
 set_seed(seed)
 
-pathTrain = './anomaly_detection/dataset/train/train/'
-pathTest = './anomaly_detection/dataset/test/test/'
+pathTrain = './anomaly_detection/dataset/train/'
+pathTest = './anomaly_detection/dataset/test/'
 pathLabel = './anomaly_detection/dataset/'
 
 device = torch.device('cuda')
@@ -46,11 +46,18 @@ test_png = sorted(glob(pathTest+'/*.png'))
 
 
 train_y = pd.read_csv(pathLabel+"train_df.csv")
-
 train_labels = train_y["label"]
 
-label_unique = sorted(np.unique(train_labels))
+val_y = pd.read_csv(pathLabel+"holymoly.csv")
+val_labels = val_y["label"]
 
+# testset 하고 갯수확인용
+# test_df = pd.read_csv(pathLabel+"test_df.csv")
+# print(test_df)
+
+# print(val_y)
+
+label_unique = sorted(np.unique(train_labels))
 label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
 
 # print(train_labels)
@@ -150,6 +157,11 @@ for epoch in range(epochs):
     train_loss = 0
     train_pred=[]
     train_y=[]
+
+    val_loss = 0
+    val_pred = []
+    val_y = []
+
     model.train()
     for batch in (train_loader):
         optimizer.zero_grad()
