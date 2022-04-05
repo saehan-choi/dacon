@@ -119,7 +119,10 @@ import numpy as np
 import imgaug as ia
 import imgaug.augmenters as iaa
 import random
-
+from utils import set_seed, trans_form
+seed = 42
+#  seed 고정됨을 확인했음. seed 만 빼면 엄청 다양한 이미지가 나오긴함.
+# set_seed(seed)
 img = cv2.imread('./anomaly_detection/test.png')
 height, width = img.shape[:2]
 
@@ -128,6 +131,13 @@ scale = random.uniform(0.8,1)
 
 M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=angle, scale=scale)
 aug_img = cv2.warpAffine(img, M1, (width, height))
+height, width = aug_img.shape[:2]
 
-cv2.imshow('res', aug_img)
+transfomed_Img = trans_form(aug_img, width, height)
+# 이게 시드를 고정하면 한 가지 밖에 안나오네.. ㅠㅠ 
+
+
+# print(transfo)
+
+cv2.imshow('res', transfomed_Img)
 cv2.waitKey(0)

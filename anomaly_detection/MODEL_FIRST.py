@@ -219,7 +219,7 @@ for epoch in range(epochs):
     
     val_f1 = score_function(val_y, val_pred)
     # print('이거 계산에서 에러남')
-    # 아 이거 에러나는이유가 testset에 이미지의 라벨이 없어서 못알아 먹는거네
+    # 아 이거 에러나는 이유가 testset에 이미지의 라벨이 없어서 못알아 먹는거네
     # 나중에 이거 이미지갯수, 라벨링갯수 맞는지 확인한다음에 고칠것
     print(f'epoch    : {epoch+1}/{epochs}')
     print(f'VAL loss : {val_loss:.5f}        f1   : {val_f1:.5f}')

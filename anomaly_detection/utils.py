@@ -22,10 +22,14 @@ def set_seed(random_seed):
 def trans_form(image, width, height):
 
     transform = A.Compose([
-        A.RandomCrop(width=round(width*0.8),height=round(height*0.8),p=0.5),
+        A.RandomCrop(width=round(width*0.9),height=round(height*0.9),p=0.5),
+        # randomcrop시 보여야할 부분이 안보이게 되는일이 없도록 처리할것.
         A.HorizontalFlip(p=0.8),
         A.VerticalFlip(p=0.5),
-        A.RandomBrightnessContrast(p=0.8)
+        # A.RandomBrightnessContrast(p=0.8)
+        # testset 확인결과 이건 없음
+
+
         ])
 
     transformed = transform(image=image)
