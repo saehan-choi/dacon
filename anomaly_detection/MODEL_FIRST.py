@@ -61,7 +61,7 @@ label_unique = {key:value for key,value in zip(label_unique, range(len(label_uni
 # print(label_unique)
 # {'bottle-broken_large': 0, 'bottle-broken_small': 1,...
 # 라벨별로 unique하게 쪼개 놓은거임
-# train_labels = [label_unique[k] for k in train_labels]
+train_labels = [label_unique[k] for k in train_labels]
 
 
 label_unique = sorted(np.unique(val_labels))
@@ -90,7 +90,7 @@ def img_load(path):
 
 # CROSS VALIDATION 생성 할 것
 
-# train_imgs = [img_load(m) for m in tqdm(train_png)]
+train_imgs = [img_load(m) for m in tqdm(train_png)]
 val_imgs = [img_load(n) for n in tqdm(val_png)]
 
 
@@ -134,8 +134,8 @@ class Network(nn.Module):
         return x
 
 # Train
-# train_dataset = Custom_dataset(np.array(train_imgs), np.array(train_labels), mode='train')
-# train_loader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size)
+train_dataset = Custom_dataset(np.array(train_imgs), np.array(train_labels), mode='train')
+train_loader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size)
 
 # Test
 val_dataset = Custom_dataset(np.array(val_imgs), np.array(val_labels), mode='val')
@@ -162,32 +162,35 @@ for epoch in range(epochs):
     train_pred=[]
     train_y=[]
 
-    # model.train()
-    # for batch in (train_loader):
-    #     # print(f'train:{len(batch[0])} {len(batch[1])}')
+    model.train()
+    for batch in (train_loader):
+        # print(f'train:{len(batch[0])} {len(batch[1])}')
 
-    #     optimizer.zero_grad()
-    #     x = torch.tensor(batch[0], dtype=torch.float32, device=device)
-    #     y = torch.tensor(batch[1], dtype=torch.long, device=device)
-    #     with torch.cuda.amp.autocast():
-    #         pred = model(x)
-    #     loss = criterion(pred, y)
+        optimizer.zero_grad()
+        x = torch.tensor(batch[0], dtype=torch.float32, device=device)
+        y = torch.tensor(batch[1], dtype=torch.long, device=device)
+        with torch.cuda.amp.autocast():
+            pred = model(x)
+        loss = criterion(pred, y)
 
 
-    #     scaler.scale(loss).backward()
-    #     scaler.step(optimizer)
-    #     scaler.update()
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
         
-    #     train_loss += loss.item()/len(train_loader)
-    #     train_pred += pred.argmax(1).detach().cpu().numpy().tolist()
-    #     train_y += y.detach().cpu().numpy().tolist()
+        train_loss += loss.item()/len(train_loader)
+        train_pred += pred.argmax(1).detach().cpu().numpy().tolist()
+        train_y += y.detach().cpu().numpy().tolist()
         
+        print(f'train_pred:{len(train_pred)}')
+        print(f'train_y:{len(train_y)}')
+        # val은 1860까지 늘어났음.
     
-    # train_f1 = score_function(train_y, train_pred)
+    train_f1 = score_function(train_y, train_pred)
 
-    # TIME = time.time() - start
-    # print(f'epoch : {epoch+1}/{epochs}    time : {TIME:.0f}s/{TIME*(epochs-epoch-1):.0f}s')
-    # print(f'TRAIN    loss : {train_loss:.5f}    f1 : {train_f1:.5f}')
+    TIME = time.time() - start
+    print(f'epoch : {epoch+1}/{epochs}    time : {TIME:.0f}s/{TIME*(epochs-epoch-1):.0f}s')
+    print(f'TRAIN    loss : {train_loss:.5f}    f1 : {train_f1:.5f}')
 
     val_loss = 0
     val_pred = []
@@ -200,9 +203,9 @@ for epoch in range(epochs):
             x = torch.tensor(batch[0], dtype = torch.float32, device = device)
             y = torch.tensor(batch[1], dtype=torch.long, device=device)
 
-            print(f'batch:{batch}')
-            print(f'batch:{len(batch[0])}')
-            print(f'y:{y}')
+            # print(f'batch:{batch}')
+            # print(f'batch:{len(batch[0])}')
+            # print(f'y:{y}')
 
             with torch.cuda.amp.autocast():
                 pred = model(x)
@@ -213,11 +216,11 @@ for epoch in range(epochs):
             val_pred += pred.argmax(1).detach().cpu().numpy().tolist()
             val_y += y.detach().cpu().numpy().tolist()
 
-            print(f'val_pred:{len(val_pred)}')
-            print(f'val_y:{len(val_y)}')
     
     val_f1 = score_function(val_y, val_pred)
-    print('어디서막힌거야 시발222?')
+    # print('이거 계산에서 에러남')
+    # 아 이거 에러나는이유가 testset에 이미지의 라벨이 없어서 못알아 먹는거네
+    # 나중에 이거 이미지갯수, 라벨링갯수 맞는지 확인한다음에 고칠것
     print(f'epoch    : {epoch+1}/{epochs}')
     print(f'VAL loss : {val_loss:.5f}        f1   : {val_f1:.5f}')
 
