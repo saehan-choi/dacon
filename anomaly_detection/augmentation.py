@@ -119,27 +119,44 @@ import numpy as np
 import imgaug as ia
 import imgaug.augmenters as iaa
 import random
-from utils import set_seed, trans_form
+from utils import set_seed, transform_album
 seed = 42
 #  seed 고정됨을 확인했음. seed 만 빼면 엄청 다양한 이미지가 나오긴함.
-# set_seed(seed)
-img = cv2.imread('./anomaly_detection/test.png')
+def transform(img,seed):
+    set_seed(seed)
+    # img = cv2.imread(f'./anomaly_detection/dataset/train/{image}')
+    # 이거 train으로 해야되네 ㅋㅋㅋㅋ 어차피 transform 은 trainset에만 적용되어야함.
 
-for i in range(1000):
     height, width = img.shape[:2]
 
-    angle = random.randint(-179,180)
+    # angle = random.randint(-179,180)
+    angle = random.randint(-45,45)
     scale = random.uniform(0.8,1)
+
+    # 비율 불균형하게 잡는방법은 오른쪽왼쪽 절대크기 조절로 변하게한 다음에 계속하면 될듯
+    # 비율을 그냥 내가 불균형하게 만들면됨.ㅎ... scale 비율을 조정할수있녜
+    # cv2.resize(src, dsize, dst=None, fx=None, fy=None, interpolation=None) -> dst
+
+    # • src: 입력 영상
+    # • dsize: 결과 영상 크기. (w, h) 튜플. (0, 0)이면 fx와 fy 값을 이용하여 결정.
+    # • dst: 출력 영상
+    # • fx, fy: x와 y방향 스케일 비율(scale factor). (dsize 값이 0일 때 유효)
+    # • interpolation: 보간법 지정. 기본값은 cv2.INTER_LINEAR
+    # scale을 랜덤하게 조정하면됨
 
     M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=angle, scale=scale)
     aug_img = cv2.warpAffine(img, M1, (width, height))
     height, width = aug_img.shape[:2]
 
-    transformed_Img = trans_form(aug_img, width, height)
-    # 이게 시드를 고정하면 한 가지 밖에 안나옴
-    # 그리고 이미지 확대하는데 좌우 비율 안맞게 확대하는 augmentation 기법도 이용해야함.
+    transformed_Img = transform_album(aug_img)
+    return transformed_Img
 
-    cv2.imwrite(f'./augmentation_ex/{i}.jpg', transformed_Img)
+# 이게 시드를 고정하면 한 가지 밖에 안나옴
+# 그리고 이미지 확대하는데 좌우 비율 안맞게 확대하는 augmentation 기법도 이용해야함.
+
+
+
+# cv2.imwrite(f'./augmentation_ex/{i}.jpg', transformed_Img)
 
 # cv2.imshow('res', transfomed_Img)
 # cv2.waitKey(0)
