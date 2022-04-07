@@ -115,15 +115,12 @@ import matplotlib.pyplot as plt
 
 
 import cv2
-import numpy as np
-import imgaug as ia
-import imgaug.augmenters as iaa
 import random
 from utils import set_seed, transform_album
 seed = 42
 #  seed 고정됨을 확인했음. seed 만 빼면 엄청 다양한 이미지가 나오긴함.
 def transform(img,seed):
-    set_seed(seed)
+    # set_seed(seed)
     # img = cv2.imread(f'./anomaly_detection/dataset/train/{image}')
     # 이거 train으로 해야되네 ㅋㅋㅋㅋ 어차피 transform 은 trainset에만 적용되어야함.
 
@@ -145,11 +142,17 @@ def transform(img,seed):
     # scale을 랜덤하게 조정하면됨
 
     M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=angle, scale=scale)
-    aug_img = cv2.warpAffine(img, M1, (width, height))
-    height, width = aug_img.shape[:2]
+    # 설마 이것 때문인가... ? 
 
-    transformed_Img = transform_album(aug_img)
-    return transformed_Img
+    aug_img = cv2.warpAffine(img, M1, (width, height))
+
+
+
+    # height, width = aug_img.shape[:2]
+    # transformed_Img = transform_album(aug_img)
+    # transform_album까지 같이안할거면 이거 안해도됨.
+
+    return aug_img
 
 # 이게 시드를 고정하면 한 가지 밖에 안나옴
 # 그리고 이미지 확대하는데 좌우 비율 안맞게 확대하는 augmentation 기법도 이용해야함.

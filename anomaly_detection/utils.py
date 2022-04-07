@@ -18,14 +18,16 @@ def set_seed(random_seed):
     # https://hoya012.github.io/blog/reproducible_pytorch/ 참조
 
 
-def transform_album(image):
-    
+def transform_album(image, RandomCrop_P, HorizontalFlip_P, VerticalFlip_P):
+
     height, width = image.shape[:2]
     transform = A.Compose([
-        A.RandomCrop(width=round(width*0.9),height=round(height*0.9),p=0.5),
+        A.RandomCrop(width=width, height=height, p=RandomCrop_P),
+
+        # random crop을 width, height 동일하게 해야할듯..?
         # randomcrop시 보여야할 부분이 안보이게 되는일이 없도록 처리할것.
-        A.HorizontalFlip(p=0.8),
-        A.VerticalFlip(p=0.5),
+        A.HorizontalFlip(p=HorizontalFlip_P),
+        A.VerticalFlip(p=VerticalFlip_P),
         # A.Blur(p=1),
         # 흠이것도.... 보류..
         # A.RandomBrightness(p=1)
@@ -40,6 +42,6 @@ def transform_album(image):
         # transformedHeight, transformedWidth = transformedImg.shape[0], transformedImg.shape[1]
         # transformedImg = cv2.resize(transformedImg, (width,height), interpolation=cv2.INTER_CUBIC)
         # 전체 데이터셋 resize도 고려해보기 
-    
+
     return transformedImg
     
