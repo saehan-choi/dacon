@@ -40,72 +40,94 @@ from augmentation import transform
 # 아니면 random하게 값을 정하라고 해놓고 어떤곳에서 성능이 좋게나왔는지만 확인하면 될거 같기도
 # 모든 augmentation 넣고 seed 값 맞추고, p를 놓고 어디서 제일 효과적이였는지...
 
+batch_size = 32
+epochs = 30
+# epoch를 15-> 30으로 변경
+# 이거 original dataset으로 15->30으로 변경도 해보는게 필요해보임
+
+
+# set_seed(seed)
+# 지금 시드없앴음 seed를 정하면 augmentation이 똑같은 augmentation만 
+# 반복되서 다양성을 죽일거같음 ㅠㅠ
+
+# seed를 동일하게남기면 균일한 랜덤시드값이 안나옴
+# seed별 기록 남겨놓기!
+# seed만 바꿔놓고 재현가능한지 한번 더 확인해야함.
+
+########## 실제 자료 이용시에는 train,test ORIGINAL을 이용하세요.###########
+########## 테스트 자료 이용시에는 train,test 이용하세요.###########
+# pathTrain = './anomaly_detection/dataset/train/'
+# pathTrain = './anomaly_detection/dataset/train_original/'
+# pathTest = './anomaly_detection/dataset/test/'
+# pathTest = './anomaly_detection/dataset/test_original/'
+
+
+# # 변경됨
+pathTrain = './anomaly_detection/dataset/train_original/'
+pathTest = './anomaly_detection/dataset/test_original/'
+
+# 단순히 lr만 3e-4로 바꿨을뿐인데 0.61 -> 0.71로 성능향상 ㄷㄷ?;;
+
+
+pathLabel = './anomaly_detection/dataset/'
+
+device = torch.device('cuda')
+
+train_png = sorted(glob(pathTrain+'/*.png'))
+val_png = sorted(glob(pathTest+'/*.png'))
+
+train_y = pd.read_csv(pathLabel+"train_df.csv")
+# 이거 augmentation 한게아니라 class balanced 하게 맞춰준거밖에없음
+
+# 변경됨
+train_labels = train_y["label"]
+
+val_y = pd.read_csv(pathLabel+"baseline_test.csv")
+val_labels = val_y["label"]
+
+label_unique = sorted(np.unique(train_labels))
+label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
+# print(train_labels)
+# 0       transistor-good
+# 1          capsule-good
+
+# print(label_unique)
+# {'bottle-broken_large': 0, 'bottle-broken_small': 1,...
+# 라벨별로 unique하게 쪼개 놓은거임
+train_labels = [label_unique[k] for k in train_labels]
+
+label_unique = sorted(np.unique(val_labels))
+
+label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
+val_labels = [label_unique[k] for k in val_labels]
+
+# print(train_labels)
+# [72, 15, 72, 76, 3, 76, 15, 55, 4...]
+# 단순히 이 숫자들은 label_unique의 숫자에 불과함 ex) 72 -> in label_unique -> transistor-good
+
+
+def img_load(path):
+    img = cv2.imread(path)[:,:,::-1]
+    # 얘 그냥 그대로 읽어올게 rgb 변환안했다. 지금 BGR로 읽어들이고있다.
+    # 근데 결국엔 똑같은듯 얘입장에서는 ... ㅎ
+    # BGR 을 RGB로 변환  -> 얘가보니깐 넘파이로 읽어오네요
+    img = cv2.resize(img, (512, 512))
+    return img
+
+train_imgs = [img_load(m) for m in tqdm(train_png)]
+val_imgs = [img_load(n) for n in tqdm(val_png)]
+
 for se_ed in range(100):
     seed = se_ed
-    batch_size = 16
-    epochs = 2
-    # set_seed(seed)
-    # 지금 시드없앴음
 
-    # seed를 동일하게남기면 균일한 랜덤시드값이 안나옴
-
-    # seed별 기록 남겨놓기!
-    # seed만 바꿔놓고 재현가능한지 한번 더 확인해야함.
-    performance = open('./anomaly_detection/performance_record.txt','a')
-    ########## 실제 자료 이용시에는 train,test ORIGINAL을 이용하세요.###########
-    ########## 테스트 자료 이용시에는 train,test 이용하세요.###########
-    # pathTrain = './anomaly_detection/dataset/train/'
-    pathTrain = './anomaly_detection/dataset/train_original/'
-    # pathTest = './anomaly_detection/dataset/test/'
-    pathTest = './anomaly_detection/dataset/test_original/'
-    pathLabel = './anomaly_detection/dataset/'
-
-    device = torch.device('cuda')
-
-    train_png = sorted(glob(pathTrain+'/*.png'))
-    val_png = sorted(glob(pathTest+'/*.png'))
-
-    train_y = pd.read_csv(pathLabel+"train_df.csv")
-    train_labels = train_y["label"]
-
-    val_y = pd.read_csv(pathLabel+"validationSET.csv")
-    val_labels = val_y["label"]
-
-    label_unique = sorted(np.unique(train_labels))
-    label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
-    # print(train_labels)
-    # 0       transistor-good
-    # 1          capsule-good
-
-    # print(label_unique)
-    # {'bottle-broken_large': 0, 'bottle-broken_small': 1,...
-    # 라벨별로 unique하게 쪼개 놓은거임
-    train_labels = [label_unique[k] for k in train_labels]
-
-    label_unique = sorted(np.unique(val_labels))
-
-    label_unique = {key:value for key,value in zip(label_unique, range(len(label_unique)))}
-    val_labels = [label_unique[k] for k in val_labels]
-
-    # print(train_labels)
-    # [72, 15, 72, 76, 3, 76, 15, 55, 4...]
-    # 단순히 이 숫자들은 label_unique의 숫자에 불과함 ex) 72 -> in label_unique -> transistor-good
-
-
-    def img_load(path):
-        img = cv2.imread(path)[:,:,::-1]
-        # BGR 을 RGB로 변환  -> 얘가보니깐 넘파이로 읽어오네요
-        img = cv2.resize(img, (512, 512))
-        return img
-
-    train_imgs = [img_load(m) for m in tqdm(train_png)]
-    val_imgs = [img_load(n) for n in tqdm(val_png)]
 
     class Custom_dataset(Dataset):
 
         def __init__(self, img_paths, labels, mode='train'):
             self.img_paths = img_paths
             self.labels = labels
+
+
             self.mode=mode
 
         def __len__(self):
@@ -118,31 +140,60 @@ for se_ed in range(100):
             # 이거 넘파이? 이루어져있을듯
 
             if self.mode=='train':
-                #  아 이거 random.randint해도 random_seed잡혀있어서 안먹힘.
-                augmentation = random.randint(0,3)
-                # print(f'random value : {augmentation}')
-                if augmentation==0:
-                    img = cv2.flip(img, -1)
-
-                elif augmentation==1:
-                    img = transform(img, seed)
+                augmentation = random.randint(0,2)
+                # 0,1,2의 수 중 하나를 반환 augmentation==0 이면 아무것도 안하는듯
+                if augmentation==1:
+                    img = img[::-1].copy()
+                    # 수평변환
 
                 elif augmentation==2:
-                    RandomCrop_P, HorizontalFlip_P, VerticalFlip_P = 0, 0.5, 0.5
-                    img = transform_album(img, RandomCrop_P, HorizontalFlip_P, VerticalFlip_P)
+                    img = img[:,::-1].copy()
+                    # 수직변환
 
-                elif augmentation==3:
-                    pass
+                #  아 이거 random.randint해도 random_seed잡혀있어서 안먹힘.
+                # augmentation = random.random()
+                # print(f'random value : {augmentation}')
+                # if augmentation<0.1:
+                    # img = cv2.flip(img, -1)
+                    # print('now is flip')
+                    # cv2.imshow('flip',img)
+                    # cv2.waitKey(0)
+
+                # if 0.1<augmentation<0.2:
+                #     img = transform(img, seed)
+                    # print('now is affine')
+                    # cv2.imshow('affine',img)
+                    # cv2.waitKey(0)
+
+                # if 0<augmentation<0.3:
+                #     RandomCrop_P, HorizontalFlip_P, VerticalFlip_P = 0.7, 0.7, 0.7
+                #     img = transform_album(img, RandomCrop_P, HorizontalFlip_P, VerticalFlip_P)
+                    # print('now is horizontal, vertical')
+                    # cv2.imshow('horizontal, vertical',img)
+                    # cv2.waitKey(0)
+
+                # elif 0.3<augmentation<0.4:
+                #     RandomCrop_P, HorizontalFlip_P, VerticalFlip_P = 0.6, 0.5, 0.5
+                #     img = cv2.flip(img, -1)
+                #     img = transform_album(img, RandomCrop_P, HorizontalFlip_P, VerticalFlip_P)
+                #     img = transform(img, seed)
+                    # print('now is all of setting')
+                    # cv2.imshow('all',img)
+                    # cv2.waitKey(0)
+
+                # elif 0.4<augmentation<1:
+                #     pass
 
             if self.mode=='val':
                 pass
 
-            img = np.array(img)
-            img = transforms.ToTensor()(img)
 
             if self.mode=='test':
                 pass
-            
+
+            # img = np.array(img)
+            # 여기서 이렇게 normalize하면 안되지않나? dataloader에서 해야하는거같은데..
+            img = transforms.ToTensor()(img)
             label = self.labels[idx]
             return img, label
         
@@ -171,7 +222,7 @@ for se_ed in range(100):
 
     model = Network().to(device)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
     criterion = nn.CrossEntropyLoss()
     scaler = torch.cuda.amp.GradScaler() 
 
@@ -183,7 +234,7 @@ for se_ed in range(100):
         train_loss = 0
         train_pred=[]
         train_y=[]
-
+        performance = open('./anomaly_detection/performance_record.txt','a')
         model.train()
         for batch in (train_loader):
             # print(f'train:{len(batch[0])} {len(batch[1])}')
@@ -242,6 +293,8 @@ for se_ed in range(100):
         print(f'VAL loss : {val_loss:.5f}        f1   : {val_f1:.5f}')
         performance.write(f'epochs: {epoch} val loss: {val_loss}  val f1:{val_f1:.5f}  seed: {seed}\n')
         # 나중에 찾기쉽게하기위해 seed랑 val f1이랑 자리바꿨다.
+        performance.close()
+
     f_pred = []
 
     val_dataset = Custom_dataset(np.array(val_imgs), np.array(["tmp"]*len(val_imgs)), mode='test')
@@ -258,14 +311,11 @@ for se_ed in range(100):
 
     f_result = [label_decoder[result] for result in f_pred]
 
-    performance.close()
-
+    
     # 제출물 생성
     submission = pd.read_csv(pathLabel+"sample_submission.csv")
 
     submission["label"] = f_result
 
     submission.to_csv(pathLabel+f"submissions/baseline_seed_{se_ed}.csv", index = False)
-    del train_loader
-    del val_loader
     gc.collect()
