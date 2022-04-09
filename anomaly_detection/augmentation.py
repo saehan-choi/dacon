@@ -117,49 +117,35 @@ import matplotlib.pyplot as plt
 import cv2
 import random
 from utils import set_seed, transform_album
-seed = 42
-#  seed 고정됨을 확인했음. seed 만 빼면 엄청 다양한 이미지가 나오긴함.
-def transform(img,seed):
-    # set_seed(seed)
-    # img = cv2.imread(f'./anomaly_detection/dataset/train/{image}')
-    # 이거 train으로 해야되네 ㅋㅋㅋㅋ 어차피 transform 은 trainset에만 적용되어야함.
+# seed = 42
+# #  seed 고정됨을 확인했음. seed 만 빼면 엄청 다양한 이미지가 나오긴함.
+# def transform(img,seed):
+#     # set_seed(seed)
+#     # img = cv2.imread(f'./anomaly_detection/dataset/train/{image}')
+#     # 이거 train으로 해야되네 ㅋㅋㅋㅋ 어차피 transform 은 trainset에만 적용되어야함.
 
-    height, width = img.shape[:2]
-
-    # angle = random.randint(-179,180)
-    angle = random.randint(-45,45)
-    scale = random.uniform(0.8,1)
-
-    # 비율 불균형하게 잡는방법은 오른쪽왼쪽 절대크기 조절로 변하게한 다음에 계속하면 될듯
-    # 비율을 그냥 내가 불균형하게 만들면됨.ㅎ... scale 비율을 조정할수있녜
-    # cv2.resize(src, dsize, dst=None, fx=None, fy=None, interpolation=None) -> dst
-
-    # • src: 입력 영상
-    # • dsize: 결과 영상 크기. (w, h) 튜플. (0, 0)이면 fx와 fy 값을 이용하여 결정.
-    # • dst: 출력 영상
-    # • fx, fy: x와 y방향 스케일 비율(scale factor). (dsize 값이 0일 때 유효)
-    # • interpolation: 보간법 지정. 기본값은 cv2.INTER_LINEAR
-    # scale을 랜덤하게 조정하면됨
-
-    M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=angle, scale=scale)
-    # 설마 이것 때문인가... ? 
-
-    aug_img = cv2.warpAffine(img, M1, (width, height))
+#     height, width = img.shape[:2]
+#     angle = random.randint(-45,45)
+#     scale = random.uniform(0.8,1)
+#     M1 = cv2.getRotationMatrix2D((height, width), angle=angle, scale=scale)
+#     aug_img = cv2.warpAffine(img, M1, (width, height))
+#     return aug_img
 
 
+import os
+path = './anomaly_detection/dataAnalysis/train_with_label_transistor_aug/transistor/'
+paths = os.listdir(path)
+print(paths)
+for j in paths:
+    paths2 = os.listdir(path+j)
+    for k in paths2:
+        # print(path+j+'/'+k)
+        img = cv2.imread(path+j+'/'+k, cv2.IMREAD_COLOR)
+        height, width = img.shape[:2]
 
-    # height, width = aug_img.shape[:2]
-    # transformed_Img = transform_album(aug_img)
-    # transform_album까지 같이안할거면 이거 안해도됨.
+        M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=45, scale=0.9)
+        aug_img = cv2.warpAffine(img, M1, (width, height))
 
-    return aug_img
-
-# 이게 시드를 고정하면 한 가지 밖에 안나옴
-# 그리고 이미지 확대하는데 좌우 비율 안맞게 확대하는 augmentation 기법도 이용해야함.
-
-
-
-# cv2.imwrite(f'./augmentation_ex/{i}.jpg', transformed_Img)
-
-# cv2.imshow('res', transfomed_Img)
-# cv2.waitKey(0)
+        cv2.imwrite(path+j+'/'+'aug_'+k,aug_img)
+        
+# print('now is flip')

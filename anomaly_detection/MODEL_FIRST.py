@@ -30,28 +30,15 @@ from augmentation import transform
 # 얼마나 빨라지냐는 GPU의 architecure마다 다르다. 
 # 가령 Volta, Turing, Ampere는 2~3배. 최신의 Kepler, Maxwell, Pascal은 1~2배정도 빨라진다.
 
-# validation set에 overfitting되게 
-# augmentation도 얘가 조절하면 좋을것같은데
-# 그런신경망도 하나 만들어서 여기에 적용해보자.
-# validation set의 loss가 적도록 학습하는거에용 ㄷㄷ!
-# probability 를 그거에 맞게 높게나오도록 
-# output값은 P가 나와야하는데... 흠 뭐로나오면 좋을까
-# 정답이 없는문제라서 비지도학습을 이용해야할듯...
-# 아니면 random하게 값을 정하라고 해놓고 어떤곳에서 성능이 좋게나왔는지만 확인하면 될거 같기도
-# 모든 augmentation 넣고 seed 값 맞추고, p를 놓고 어디서 제일 효과적이였는지...
-
 batch_size = 32
-epochs = 30
-# epoch를 15-> 30으로 변경
-# 이거 original dataset으로 15->30으로 변경도 해보는게 필요해보임
+epochs = 21
 
+# 보고 15 epochs 도 괜찮기도 한듯
+# 21~22epochs로 가야함 여기서 성능이 제일좋고 그다음부터 떨어짐
 
 # set_seed(seed)
 # 지금 시드없앴음 seed를 정하면 augmentation이 똑같은 augmentation만 
 # 반복되서 다양성을 죽일거같음 ㅠㅠ
-
-# seed를 동일하게남기면 균일한 랜덤시드값이 안나옴
-# seed별 기록 남겨놓기!
 # seed만 바꿔놓고 재현가능한지 한번 더 확인해야함.
 
 ########## 실제 자료 이용시에는 train,test ORIGINAL을 이용하세요.###########
@@ -63,7 +50,9 @@ epochs = 30
 
 
 # # 변경됨
-pathTrain = './anomaly_detection/dataset/train_original/'
+# pathTrain = './anomaly_detection/dataset/train_original/'
+pathTrain = './anomaly_detection/dataset/train_with_label_transistor_aug/'
+
 pathTest = './anomaly_detection/dataset/test_original/'
 
 # 단순히 lr만 3e-4로 바꿨을뿐인데 0.61 -> 0.71로 성능향상 ㄷㄷ?;;
@@ -76,7 +65,7 @@ device = torch.device('cuda')
 train_png = sorted(glob(pathTrain+'/*.png'))
 val_png = sorted(glob(pathTest+'/*.png'))
 
-train_y = pd.read_csv(pathLabel+"train_df.csv")
+train_y = pd.read_csv(pathLabel+"label_train_with_label_transistor_aug.csv")
 # 이거 augmentation 한게아니라 class balanced 하게 맞춰준거밖에없음
 
 # 변경됨
@@ -108,9 +97,6 @@ val_labels = [label_unique[k] for k in val_labels]
 
 def img_load(path):
     img = cv2.imread(path)[:,:,::-1]
-    # 얘 그냥 그대로 읽어올게 rgb 변환안했다. 지금 BGR로 읽어들이고있다.
-    # 근데 결국엔 똑같은듯 얘입장에서는 ... ㅎ
-    # BGR 을 RGB로 변환  -> 얘가보니깐 넘파이로 읽어오네요
     img = cv2.resize(img, (512, 512))
     return img
 
@@ -150,9 +136,9 @@ for se_ed in range(100):
                     img = img[:,::-1].copy()
                     # 수직변환
                 
-                # elif augmentation==3:
-                #     img = img[::-1].copy()
-                #     img = img[:,::-1].copy()
+                elif augmentation==3:
+                    img = img[::-1].copy()
+                    img = img[:,::-1].copy()
                     # 수평수직변환
 
                 # 이거 random(0,4)로바꾸고 수평변환 수직변환 동시에 적용된거 넣으면 어케될까
