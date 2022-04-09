@@ -20,8 +20,8 @@ import torchvision.transforms as transforms
 from sklearn.metrics import f1_score, accuracy_score
 import time
 
-from utils import set_seed, transform_album
-from augmentation import transform
+# from utils import set_seed, transform_album
+# from augmentation import transform
 
 # 파이토치에서는 amp를 쓴다는 것은 학습할때
 # torch.cuda.amp.autocast 와 torch.cuda.amp.GradScaler를 같이 쓰는 것을 의미한다.
@@ -50,8 +50,8 @@ epochs = 21
 
 
 # # 변경됨
-# pathTrain = './anomaly_detection/dataset/train_original/'
-pathTrain = './anomaly_detection/dataset/train_with_label_transistor_aug/'
+pathTrain = './anomaly_detection/dataset/train_with_label_error_resolve2/'
+# pathTrain = './anomaly_detection/dataset/train_label_transistor_aug/'
 
 pathTest = './anomaly_detection/dataset/test_original/'
 
@@ -65,7 +65,7 @@ device = torch.device('cuda')
 train_png = sorted(glob(pathTrain+'/*.png'))
 val_png = sorted(glob(pathTest+'/*.png'))
 
-train_y = pd.read_csv(pathLabel+"label_train_with_label_transistor_aug.csv")
+train_y = pd.read_csv(pathLabel+"train_with_label_error_resolve.csv")
 # 이거 augmentation 한게아니라 class balanced 하게 맞춰준거밖에없음
 
 # 변경됨
