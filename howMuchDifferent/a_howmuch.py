@@ -3,8 +3,10 @@ import pandas as pd
 
 path = './howMuchDifferent/'
 
+# csv만 옮기고 파일쓰면 됩니다.
 pred_csv = 'baseline_seed_0.csv'
 gt_csv = 'human_label.csv'
+
 
 pred_label = pd.read_csv(path+pred_csv)
 gt_label = pd.read_csv(path+gt_csv)
@@ -21,10 +23,16 @@ pred = compare.loc[:,'other'].reset_index()
 gt.columns = ['index','gt']
 pred.columns = ['index','pred']
 
-# print(pred['pred'])
 df = pd.concat([gt,pred['pred']],axis=1)
-
 df['file_name'] = df['index']+20000
+
+pd.set_option('display.max_rows',None)
+print(df['gt'].value_counts())
+
+# 여기서 제일많은 순서대로 고쳐 나가야 합니다.
+# 제가 라벨링 한게 False postive or False Negative일 확률이 있기 때문입니다.
+
+df.to_csv(path+f"howMuchDiffrent.csv", index = False)
 
 # gt = gt[gt!=pred]
 # # gt에서 예측한 값들

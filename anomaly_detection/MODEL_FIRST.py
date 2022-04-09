@@ -149,6 +149,13 @@ for se_ed in range(100):
                 elif augmentation==2:
                     img = img[:,::-1].copy()
                     # 수직변환
+                
+                # elif augmentation==3:
+                #     img = img[::-1].copy()
+                #     img = img[:,::-1].copy()
+                    # 수평수직변환
+
+                # 이거 random(0,4)로바꾸고 수평변환 수직변환 동시에 적용된거 넣으면 어케될까
 
                 #  아 이거 random.randint해도 random_seed잡혀있어서 안먹힘.
                 # augmentation = random.random()
@@ -319,3 +326,4 @@ for se_ed in range(100):
 
     submission.to_csv(pathLabel+f"submissions/baseline_seed_{se_ed}.csv", index = False)
     gc.collect()
+

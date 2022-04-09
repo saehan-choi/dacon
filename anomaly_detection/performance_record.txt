@@ -107,3 +107,83 @@ epochs: 20 train loss: 0.030125251456872733  train f1: 0.97261  seed: 0
 epochs: 20 val loss: 1.1494427849264708  val f1:0.71698  seed: 0
 epochs: 21 train loss: 0.03304036517641436  train f1: 0.97427  seed: 0 
 epochs: 21 val loss: 0.9659387925091909  val f1:0.72344  seed: 0
+epochs: 22 train loss: 0.009503774678529198  train f1: 0.99329  seed: 0 
+epochs: 22 val loss: 1.042627671185662  val f1:0.75232  seed: 0
+epochs: 23 train loss: 0.013463228051342185  train f1: 0.98974  seed: 0 
+epochs: 23 val loss: 1.1391278435202206  val f1:0.71082  seed: 0
+epochs: 24 train loss: 0.051350731458236896  train f1: 0.95615  seed: 0 
+epochs: 24 val loss: 1.196335736443014  val f1:0.70255  seed: 0
+epochs: 25 train loss: 0.032022104334475394  train f1: 0.97112  seed: 0 
+epochs: 25 val loss: 0.9935841279871322  val f1:0.72777  seed: 0
+epochs: 26 train loss: 0.035168198062412774  train f1: 0.96705  seed: 0 
+epochs: 26 val loss: 1.1273534438189337  val f1:0.70336  seed: 0
+epochs: 27 train loss: 0.027395772400187004  train f1: 0.98148  seed: 0 
+epochs: 27 val loss: 1.0158498988432039  val f1:0.74069  seed: 0
+epochs: 28 train loss: 0.014506972547787338  train f1: 0.98848  seed: 0 
+epochs: 28 val loss: 1.0267253202550553  val f1:0.73379  seed: 0
+epochs: 29 train loss: 0.01441534063709316  train f1: 0.98946  seed: 0 
+epochs: 29 val loss: 0.9821920955882352  val f1:0.75303  seed: 0
+epochs: 0 train loss: 0.9389083634561564  train f1: 0.22375  seed: 1 
+epochs: 0 val loss: 1.7838852826286768  val f1:0.27631  seed: 1
+epochs: 1 train loss: 0.4669207672574626  train f1: 0.42207  seed: 1 
+epochs: 1 val loss: 1.5040139590992647  val f1:0.40034  seed: 1
+epochs: 0 train loss: 0.9489381704757464  train f1: 0.22327  seed: 0 
+epochs: 0 val loss: 1.8232996323529411  val f1:0.23689  seed: 0
+epochs: 1 train loss: 0.45888485125641326  train f1: 0.43544  seed: 0 
+epochs: 1 val loss: 1.4659244312959563  val f1:0.38394  seed: 0
+epochs: 2 train loss: 0.30681735366138063  train f1: 0.57800  seed: 0 
+epochs: 2 val loss: 1.1806856043198528  val f1:0.56742  seed: 0
+epochs: 3 train loss: 0.1757539208255598  train f1: 0.77567  seed: 0 
+epochs: 3 val loss: 1.2318240894990806  val f1:0.56313  seed: 0
+epochs: 4 train loss: 0.12753613315411463  train f1: 0.80834  seed: 0 
+epochs: 4 val loss: 1.016899557674633  val f1:0.63960  seed: 0
+epochs: 5 train loss: 0.09589778843210706  train f1: 0.88199  seed: 0 
+epochs: 5 val loss: 1.0065244786879597  val f1:0.66615  seed: 0
+epochs: 6 train loss: 0.06765846707927647  train f1: 0.91697  seed: 0 
+epochs: 6 val loss: 1.0319541482364427  val f1:0.63974  seed: 0
+epochs: 7 train loss: 0.055299595220765094  train f1: 0.91837  seed: 0 
+epochs: 7 val loss: 1.0884516098920036  val f1:0.65467  seed: 0
+epochs: 8 train loss: 0.061519957300442366  train f1: 0.93424  seed: 0 
+epochs: 8 val loss: 1.4092299517463232  val f1:0.63287  seed: 0
+epochs: 9 train loss: 0.04511043206969307  train f1: 0.95479  seed: 0 
+epochs: 9 val loss: 1.1415153952205885  val f1:0.69161  seed: 0
+epochs: 10 train loss: 0.019611494754677387  train f1: 0.98530  seed: 0 
+epochs: 10 val loss: 1.1817178165211397  val f1:0.69884  seed: 0
+epochs: 11 train loss: 0.04510359977608297  train f1: 0.94258  seed: 0 
+epochs: 11 val loss: 1.4841452205882353  val f1:0.64377  seed: 0
+epochs: 12 train loss: 0.016945378104252604  train f1: 0.98546  seed: 0 
+epochs: 12 val loss: 1.3842181037454044  val f1:0.66352  seed: 0
+epochs: 13 train loss: 0.02715724350801155  train f1: 0.97786  seed: 0 
+epochs: 13 val loss: 0.9773460836971509  val f1:0.71304  seed: 0
+epochs: 14 train loss: 0.031068179144788148  train f1: 0.96045  seed: 0 
+epochs: 14 val loss: 1.1468434053308822  val f1:0.67954  seed: 0
+epochs: 15 train loss: 0.026164732762237103  train f1: 0.97133  seed: 0 
+epochs: 15 val loss: 1.1754437614889706  val f1:0.68853  seed: 0
+epochs: 16 train loss: 0.03146084475873121  train f1: 0.97161  seed: 0 
+epochs: 16 val loss: 1.2768123851102942  val f1:0.68541  seed: 0
+epochs: 17 train loss: 0.03765961305419012  train f1: 0.96258  seed: 0 
+epochs: 17 val loss: 1.1283246208639703  val f1:0.70800  seed: 0
+epochs: 18 train loss: 0.024244418784753596  train f1: 0.97765  seed: 0 
+epochs: 18 val loss: 1.5821497300091916  val f1:0.68814  seed: 0
+epochs: 19 train loss: 0.019650576719597204  train f1: 0.98037  seed: 0 
+epochs: 19 val loss: 1.1725912655101103  val f1:0.71604  seed: 0
+epochs: 20 train loss: 0.033756492742851606  train f1: 0.97356  seed: 0 
+epochs: 20 val loss: 1.1930398380055145  val f1:0.71483  seed: 0
+epochs: 21 train loss: 0.03028058738850837  train f1: 0.96379  seed: 0 
+epochs: 21 val loss: 1.2151273839613974  val f1:0.70943  seed: 0
+epochs: 22 train loss: 0.01759429298230071  train f1: 0.97422  seed: 0 
+epochs: 22 val loss: 1.1698716107536766  val f1:0.71241  seed: 0
+epochs: 23 train loss: 0.02587211043087404  train f1: 0.97678  seed: 0 
+epochs: 23 val loss: 0.9449373133042284  val f1:0.75646  seed: 0
+epochs: 24 train loss: 0.02030856662721777  train f1: 0.98135  seed: 0 
+epochs: 24 val loss: 1.6281924528234133  val f1:0.70243  seed: 0
+epochs: 25 train loss: 0.053824008400760445  train f1: 0.95183  seed: 0 
+epochs: 25 val loss: 1.153910328360165  val f1:0.70365  seed: 0
+epochs: 26 train loss: 0.0433845947037882  train f1: 0.95744  seed: 0 
+epochs: 26 val loss: 1.1263643152573537  val f1:0.72311  seed: 0
+epochs: 27 train loss: 0.01504977336570398  train f1: 0.98108  seed: 0 
+epochs: 27 val loss: 1.045691995059743  val f1:0.72171  seed: 0
+epochs: 28 train loss: 0.025467015024441392  train f1: 0.98401  seed: 0 
+epochs: 28 val loss: 1.0446633731617647  val f1:0.72306  seed: 0
+epochs: 29 train loss: 0.013987266305667245  train f1: 0.98384  seed: 0 
+epochs: 29 val loss: 0.9832135368795956  val f1:0.75389  seed: 0
