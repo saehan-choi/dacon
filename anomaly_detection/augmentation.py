@@ -133,19 +133,32 @@ from utils import set_seed, transform_album
 
 
 import os
-path = './anomaly_detection/dataAnalysis/train_with_label_transistor_aug/transistor/'
-paths = os.listdir(path)
-print(paths)
-for j in paths:
-    paths2 = os.listdir(path+j)
-    for k in paths2:
-        # print(path+j+'/'+k)
-        img = cv2.imread(path+j+'/'+k, cv2.IMREAD_COLOR)
-        height, width = img.shape[:2]
+import time
 
-        M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=45, scale=0.9)
-        aug_img = cv2.warpAffine(img, M1, (width, height))
+path_ = './anomaly_detection/dataAnalysis/train_with_affine_aug/'
+path_listdir = os.listdir(path_)
 
-        cv2.imwrite(path+j+'/'+'aug_'+k,aug_img)
-        
-# print('now is flip')
+print(path_listdir)
+
+for m in path_listdir:
+
+    path = f'./anomaly_detection/dataAnalysis/train_with_affine_aug/{m}/'
+    paths = os.listdir(path)
+
+    for j in paths:
+        paths2 = os.listdir(path+j)
+        for k in paths2:
+            # print(path+j+'/'+k)
+            img = cv2.imread(path+j+'/'+k, cv2.IMREAD_COLOR)
+            height, width = img.shape[:2]
+
+            M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=45, scale=1)
+            aug_img = cv2.warpAffine(img, M1, (width, height))
+
+            cv2.imwrite(path+j+'/'+'aug_affine_45'+k,aug_img)
+
+            M1 = cv2.getRotationMatrix2D((height/2, width/2), angle=20, scale=1)
+            aug_img = cv2.warpAffine(img, M1, (width, height))
+            cv2.imwrite(path+j+'/'+'aug_affine_20'+k,aug_img)
+            
+    print(f'{path} is flip')

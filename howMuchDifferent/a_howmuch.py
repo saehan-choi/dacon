@@ -4,7 +4,7 @@ import pandas as pd
 path = './howMuchDifferent/'
 
 # csv만 옮기고 파일쓰면 됩니다.
-pred_csv = 'baseline_seed_0.csv'
+pred_csv = 'train_with_affine_aug_16_lr_0.0003.csv'
 gt_csv = 'human_label.csv'
 
 
