@@ -26,22 +26,20 @@ from optuna.trial import TrialState
 # batch_size = 32
 # lr = 3e-4
 # epochs = 20
-seed = 24
 
-set_seed(seed)
 
 ########## 실제 자료 이용시에는 train,test ORIGINAL을 이용하세요.###########
 ########## 테스트 자료 이용시에는 train,test 이용하세요.###########
-# pathTrain = './anomaly_detection/dataset/train/'
+pathTrain = './anomaly_detection/dataset/train/'
 # pathTrain = './anomaly_detection/dataset/train_original/'
-# pathTest = './anomaly_detection/dataset/test/'
+pathTest = './anomaly_detection/dataset/test/'
 # pathTest = './anomaly_detection/dataset/test_original/'
 
-pathTrain = './anomaly_detection/dataset/train_with_affine_aug/'
+# pathTrain = './anomaly_detection/dataset/train_with_affine_aug/'
 
 # # # 변경됨
 # pathTrain = './anomaly_detection/dataset/train_original/'
-pathTest = './anomaly_detection/dataset/test_original/'
+# pathTest = './anomaly_detection/dataset/test_original/'
 # 단순히 lr만 3e-4로 바꿨을뿐인데 0.61 -> 0.71로 성능향상
 # -> 거기에 image augmentation 적용 -> 0.83 
 # -> ensemble 적용 0.835
@@ -53,7 +51,8 @@ device = torch.device('cuda')
 train_png = sorted(glob(pathTrain+'/*.png'))
 val_png = sorted(glob(pathTest+'/*.png'))
 
-train_y = pd.read_csv(pathLabel+"train_with_affine_aug.csv")
+# train_y = pd.read_csv(pathLabel+"train_with_affine_aug.csv")
+train_y = pd.read_csv(pathLabel+"train_df.csv")
 train_labels = train_y["label"]
 
 val_y = pd.read_csv(pathLabel+"baseline_test.csv")
@@ -103,9 +102,9 @@ class Custom_dataset(Dataset):
             elif augmentation==3:
                 transform_ = transforms.Compose([
                                     transforms.ToTensor(),
-                                    transforms.RandomResizedCrop(512,scale=(0.85,1),ratio=(1,1.2)),
+                                    # transforms.RandomResizedCrop(512,scale=(0.85,1),ratio=(1,1.2)),
                                     transforms.RandomErasing(scale=(0.01,0.05),ratio=(0.01,0.05), p=1),
-                                    # transforms.RandomPerspective(distortion_scale=0.1,p=1),
+                                    transforms.RandomPerspective(distortion_scale=0.1,p=1),
                                     transforms.ToPILImage(),
                 ])
                 img = transform_(img)
@@ -136,16 +135,27 @@ def score_function(real, pred):
 
 
 def objective(trial):
+    
+    
 
     model = Network().to(device)
 
-    optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
-    lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
-    optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
+    # optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
+    # lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
+    # optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
 
-    epochs = trial.suggest_int('epochs',5,20)
-    batch_size = trial.suggest_int('batch_size',8,32)
-
+    # epochs = trial.suggest_int('epochs',5,20)
+    # batch_size = trial.suggest_int('batch_size',8,32)
+    # seed = trial.suggest_int('seed',1,100)
+    
+    # 검증시 사용
+    lr = 0.0006833364758030707
+    epochs = 8
+    optimizer = optim.RMSprop(model.parameters(),lr=lr)
+    batch_size = 32
+    seed = 69
+    
+    set_seed(seed)
     criterion = nn.CrossEntropyLoss()
     scaler = torch.cuda.amp.GradScaler() 
 
@@ -223,9 +233,9 @@ def objective(trial):
         if trial.should_prune():
             raise optuna.exceptions.TrialPruned()
             
-        f_pred = []
+        # f_pred = []
         
-        own_pred = []
+        # own_pred = []
 
         # val_dataset_2 = Custom_dataset(np.array(val_imgs), np.array(["tmp"]*len(val_imgs)), mode='test')
         # val_loader_2 = DataLoader(val_dataset_2, shuffle=False, batch_size=batch_size)
@@ -257,12 +267,12 @@ def objective(trial):
         # submission.to_csv(pathLabel+f"submissions/add_clssifier_layer_epochs{epoch}_{batch_size}_lr_{lr}_val_f1_{val_f1}.csv", index = False)
 
         # gc.collect()
-        return val_f1
+    return val_f1
 
 
 if __name__ == "__main__":
     study = optuna.create_study(direction="maximize")
-    study.optimize(objective, n_trials=100, timeout=900)
+    study.optimize(objective, n_trials=100)
     pruned_trials = study.get_trials(deepcopy=False, states=[TrialState.PRUNED])
     complete_trials = study.get_trials(deepcopy=False, states=[TrialState.COMPLETE])
 
