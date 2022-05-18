@@ -1,0 +1,200 @@
+epochs: 0 train loss: 0.9049723972784025  train f1: 0.22443  lr: 0.0017 batch: 15 
+epochs: 0 val loss: 2.334635416666665  val f1:0.18836  lr: 0.0017 batch: 15
+epochs: 1 train loss: 0.5372470071382607  train f1: 0.36458  lr: 0.0017 batch: 15 
+epochs: 1 val loss: 1.6248643663194444  val f1:0.31944  lr: 0.0017 batch: 15
+epochs: 2 train loss: 0.4341051155161645  train f1: 0.46808  lr: 0.0017 batch: 15 
+epochs: 2 val loss: 1.6262376573350692  val f1:0.38263  lr: 0.0017 batch: 15
+epochs: 3 train loss: 0.3862904165392725  train f1: 0.51157  lr: 0.0017 batch: 15 
+epochs: 3 val loss: 1.3223130967881949  val f1:0.48463  lr: 0.0017 batch: 15
+epochs: 4 train loss: 0.30184338917242043  train f1: 0.61096  lr: 0.0017 batch: 15 
+epochs: 4 val loss: 1.349694146050348  val f1:0.46563  lr: 0.0017 batch: 15
+epochs: 5 train loss: 0.2767912962726344  train f1: 0.65859  lr: 0.0017 batch: 15 
+epochs: 5 val loss: 1.1818470425075962  val f1:0.56655  lr: 0.0017 batch: 15
+epochs: 6 train loss: 0.2512580523981117  train f1: 0.69907  lr: 0.0017 batch: 15 
+epochs: 6 val loss: 1.4768634372287328  val f1:0.49195  lr: 0.0017 batch: 15
+epochs: 7 train loss: 0.22985211933884656  train f1: 0.71205  lr: 0.0017 batch: 15 
+epochs: 7 val loss: 1.1255713568793402  val f1:0.58877  lr: 0.0017 batch: 15
+epochs: 8 train loss: 0.2154361043020944  train f1: 0.74616  lr: 0.0017 batch: 15 
+epochs: 8 val loss: 1.182355880737305  val f1:0.60613  lr: 0.0017 batch: 15
+epochs: 9 train loss: 0.18598094164768114  train f1: 0.76405  lr: 0.0017 batch: 15 
+epochs: 9 val loss: 1.2040150960286462  val f1:0.58554  lr: 0.0017 batch: 15
+epochs: 10 train loss: 0.16159181951362392  train f1: 0.80589  lr: 0.0017 batch: 15 
+epochs: 10 val loss: 0.9909659491644967  val f1:0.65949  lr: 0.0017 batch: 15
+epochs: 11 train loss: 0.15413768380601828  train f1: 0.81548  lr: 0.0017 batch: 15 
+epochs: 11 val loss: 1.040006849500868  val f1:0.65758  lr: 0.0017 batch: 15
+epochs: 12 train loss: 0.13786407441736398  train f1: 0.82676  lr: 0.0017 batch: 15 
+epochs: 12 val loss: 1.0638095008002388  val f1:0.67637  lr: 0.0017 batch: 15
+epochs: 13 train loss: 0.13758586054650435  train f1: 0.82997  lr: 0.0017 batch: 15 
+epochs: 13 val loss: 1.17043579949273  val f1:0.66834  lr: 0.0017 batch: 15
+epochs: 14 train loss: 0.13813945344675363  train f1: 0.82463  lr: 0.0017 batch: 15 
+epochs: 14 val loss: 0.9935990969340011  val f1:0.67276  lr: 0.0017 batch: 15
+epochs: 15 train loss: 0.10640384326471353  train f1: 0.87585  lr: 0.0017 batch: 15 
+epochs: 15 val loss: 1.4724536471896708  val f1:0.63608  lr: 0.0017 batch: 15
+epochs: 16 train loss: 0.10406330924167828  train f1: 0.87405  lr: 0.0017 batch: 15 
+epochs: 16 val loss: 1.038842731051975  val f1:0.69135  lr: 0.0017 batch: 15
+epochs: 17 train loss: 0.09340134012364901  train f1: 0.87794  lr: 0.0017 batch: 15 
+epochs: 17 val loss: 1.2033570607503257  val f1:0.63242  lr: 0.0017 batch: 15
+epochs: 18 train loss: 0.09982606295113257  train f1: 0.87701  lr: 0.0017 batch: 15 
+epochs: 18 val loss: 1.1160451041327581  val f1:0.68000  lr: 0.0017 batch: 15
+epochs: 19 train loss: 0.0967956837092604  train f1: 0.88596  lr: 0.0017 batch: 15 
+epochs: 19 val loss: 1.2381934059990778  val f1:0.67900  lr: 0.0017 batch: 15
+epochs: 20 train loss: 0.07441572441118896  train f1: 0.90000  lr: 0.0017 batch: 15 
+epochs: 20 val loss: 1.106717851426866  val f1:0.71025  lr: 0.0017 batch: 15
+epochs: 0 train loss: 0.6090206612375313  train f1: 0.40814  lr: 0.0003 batch: 32 
+epochs: 0 val loss: 1.0578326056985297  val f1:0.54183  lr: 0.0003 batch: 32
+epochs: 1 train loss: 0.174111183147478  train f1: 0.76719  lr: 0.0003 batch: 32 
+epochs: 1 val loss: 0.7981728946461394  val f1:0.69204  lr: 0.0003 batch: 32
+epochs: 2 train loss: 0.08774528360723553  train f1: 0.88302  lr: 0.0003 batch: 32 
+epochs: 2 val loss: 0.6941241096047795  val f1:0.75481  lr: 0.0003 batch: 32
+epochs: 3 train loss: 0.06358856096529311  train f1: 0.91301  lr: 0.0003 batch: 32 
+epochs: 3 val loss: 0.6916082045611216  val f1:0.77177  lr: 0.0003 batch: 32
+epochs: 4 train loss: 0.03678729112011539  train f1: 0.96198  lr: 0.0003 batch: 32 
+epochs: 4 val loss: 0.701930326573989  val f1:0.79009  lr: 0.0003 batch: 32
+epochs: 5 train loss: 0.039905479126737614  train f1: 0.95052  lr: 0.0003 batch: 32 
+epochs: 5 val loss: 0.6608837352079504  val f1:0.80779  lr: 0.0003 batch: 32
+epochs: 6 train loss: 0.04415042263611296  train f1: 0.95759  lr: 0.0003 batch: 32 
+epochs: 6 val loss: 0.7597153607536767  val f1:0.77640  lr: 0.0003 batch: 32
+epochs: 7 train loss: 0.03904043052559184  train f1: 0.95475  lr: 0.0003 batch: 32 
+epochs: 7 val loss: 0.7714547549977022  val f1:0.77336  lr: 0.0003 batch: 32
+epochs: 8 train loss: 0.03775795142252249  train f1: 0.95929  lr: 0.0003 batch: 32 
+epochs: 8 val loss: 0.84869384765625  val f1:0.76904  lr: 0.0003 batch: 32
+epochs: 9 train loss: 0.02990692482327583  train f1: 0.96738  lr: 0.0003 batch: 32 
+epochs: 9 val loss: 0.7325951071346505  val f1:0.78452  lr: 0.0003 batch: 32
+epochs: 10 train loss: 0.02651234457914967  train f1: 0.97198  lr: 0.0003 batch: 32 
+epochs: 10 val loss: 0.7328338623046876  val f1:0.82221  lr: 0.0003 batch: 32
+epochs: 11 train loss: 0.02190490107881162  train f1: 0.98080  lr: 0.0003 batch: 32 
+epochs: 11 val loss: 0.7286816765280331  val f1:0.82003  lr: 0.0003 batch: 32
+epochs: 12 train loss: 0.020679706647211814  train f1: 0.97697  lr: 0.0003 batch: 32 
+epochs: 12 val loss: 0.6849775314331052  val f1:0.82803  lr: 0.0003 batch: 32
+epochs: 0 train loss: 0.6090206612375313  train f1: 0.40814  lr: 0.0003 batch: 32 
+epochs: 0 val loss: 1.0578326056985297  val f1:0.54183  lr: 0.0003 batch: 32
+epochs: 1 train loss: 0.174111183147478  train f1: 0.76719  lr: 0.0003 batch: 32 
+epochs: 1 val loss: 0.7981728946461394  val f1:0.69204  lr: 0.0003 batch: 32
+epochs: 2 train loss: 0.08774528360723553  train f1: 0.88302  lr: 0.0003 batch: 32 
+epochs: 2 val loss: 0.6941241096047795  val f1:0.75481  lr: 0.0003 batch: 32
+epochs: 3 train loss: 0.06358856096529311  train f1: 0.91301  lr: 0.0003 batch: 32 
+epochs: 3 val loss: 0.6916082045611216  val f1:0.77177  lr: 0.0003 batch: 32
+epochs: 4 train loss: 0.03678729112011539  train f1: 0.96198  lr: 0.0003 batch: 32 
+epochs: 4 val loss: 0.701930326573989  val f1:0.79009  lr: 0.0003 batch: 32
+epochs: 5 train loss: 0.039905479126737614  train f1: 0.95052  lr: 0.0003 batch: 32 
+epochs: 5 val loss: 0.6608837352079504  val f1:0.80779  lr: 0.0003 batch: 32
+epochs: 6 train loss: 0.04415042263611296  train f1: 0.95759  lr: 0.0003 batch: 32 
+epochs: 6 val loss: 0.7597153607536767  val f1:0.77640  lr: 0.0003 batch: 32
+epochs: 7 train loss: 0.03904043052559184  train f1: 0.95475  lr: 0.0003 batch: 32 
+epochs: 7 val loss: 0.7714547549977022  val f1:0.77336  lr: 0.0003 batch: 32
+epochs: 8 train loss: 0.03775795142252249  train f1: 0.95929  lr: 0.0003 batch: 32 
+epochs: 8 val loss: 0.84869384765625  val f1:0.76904  lr: 0.0003 batch: 32
+epochs: 9 train loss: 0.02990692482327583  train f1: 0.96738  lr: 0.0003 batch: 32 
+epochs: 9 val loss: 0.7325951071346505  val f1:0.78452  lr: 0.0003 batch: 32
+epochs: 10 train loss: 0.02651234457914967  train f1: 0.97198  lr: 0.0003 batch: 32 
+epochs: 10 val loss: 0.7328338623046876  val f1:0.82221  lr: 0.0003 batch: 32
+epochs: 11 train loss: 0.02190490107881162  train f1: 0.98080  lr: 0.0003 batch: 32 
+epochs: 11 val loss: 0.7286816765280331  val f1:0.82003  lr: 0.0003 batch: 32
+epochs: 12 train loss: 0.020679706647211814  train f1: 0.97697  lr: 0.0003 batch: 32 
+epochs: 12 val loss: 0.6849775314331052  val f1:0.82803  lr: 0.0003 batch: 32
+epochs: 0 train loss: 4.421875  train f1: 0.00000  lr: 0.0003 batch: 32 
+epochs: 0 val loss: 4.8203125  val f1:0.00000  lr: 0.0003 batch: 32
+epochs: 1 train loss: 4.296875  train f1: 0.00000  lr: 0.0003 batch: 32 
+epochs: 1 val loss: 4.77734375  val f1:0.00000  lr: 0.0003 batch: 32
+epochs: 2 train loss: 2.859375  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 2 val loss: 4.6875  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 3 train loss: 0.97607421875  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 3 val loss: 4.51171875  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 4 train loss: 0.462158203125  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 4 val loss: 4.296875  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 5 train loss: 0.1439208984375  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 5 val loss: 4.0703125  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 6 train loss: 0.043853759765625  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 6 val loss: 3.892578125  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 7 train loss: 0.0217742919921875  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 7 val loss: 3.76171875  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 8 train loss: 0.0113677978515625  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 8 val loss: 3.6796875  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 9 train loss: 0.006175994873046875  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 9 val loss: 3.625  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 10 train loss: 0.005283355712890625  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 10 val loss: 3.564453125  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 11 train loss: 0.004505157470703125  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 11 val loss: 3.5390625  val f1:0.11111  lr: 0.0003 batch: 32
+epochs: 12 train loss: 0.0042572021484375  train f1: 1.00000  lr: 0.0003 batch: 32 
+epochs: 12 val loss: 3.533203125  val f1:0.12500  lr: 0.0003 batch: 32
+epochs: 0 train loss: 0.6090206612375313  train f1: 0.40814  lr: 0.0003 batch: 32 
+epochs: 0 val loss: 1.0578326056985297  val f1:0.54183  lr: 0.0003 batch: 32
+epochs: 1 train loss: 0.17699986027363218  train f1: 0.76117  lr: 0.0003 batch: 32 
+epochs: 1 val loss: 0.69156691607307  val f1:0.71371  lr: 0.0003 batch: 32
+epochs: 2 train loss: 0.0858088467186526  train f1: 0.89317  lr: 0.0003 batch: 32 
+epochs: 2 val loss: 0.6980967802159925  val f1:0.75355  lr: 0.0003 batch: 32
+epochs: 3 train loss: 0.06236409189695132  train f1: 0.92501  lr: 0.0003 batch: 32 
+epochs: 3 val loss: 0.6005051556755515  val f1:0.78111  lr: 0.0003 batch: 32
+epochs: 4 train loss: 0.044444264913734946  train f1: 0.95295  lr: 0.0003 batch: 32 
+epochs: 4 val loss: 0.7903065400965074  val f1:0.75924  lr: 0.0003 batch: 32
+epochs: 5 train loss: 0.0410457159812908  train f1: 0.95104  lr: 0.0003 batch: 32 
+epochs: 5 val loss: 0.8148103601792283  val f1:0.76253  lr: 0.0003 batch: 32
+epochs: 6 train loss: 0.04198378874476712  train f1: 0.95824  lr: 0.0003 batch: 32 
+epochs: 6 val loss: 0.7212183335248163  val f1:0.78579  lr: 0.0003 batch: 32
+epochs: 7 train loss: 0.029936284198428035  train f1: 0.96874  lr: 0.0003 batch: 32 
+epochs: 7 val loss: 0.7180121926700369  val f1:0.76941  lr: 0.0003 batch: 32
+epochs: 8 train loss: 0.036584449825144146  train f1: 0.96891  lr: 0.0003 batch: 32 
+epochs: 8 val loss: 0.8860195384306069  val f1:0.77092  lr: 0.0003 batch: 32
+epochs: 9 train loss: 0.032062491276615  train f1: 0.96040  lr: 0.0003 batch: 32 
+epochs: 9 val loss: 0.9599519617417279  val f1:0.76279  lr: 0.0003 batch: 32
+epochs: 10 train loss: 0.023679763301649594  train f1: 0.97914  lr: 0.0003 batch: 32 
+epochs: 10 val loss: 0.8843206517836626  val f1:0.76038  lr: 0.0003 batch: 32
+epochs: 11 train loss: 0.031139555863311467  train f1: 0.97206  lr: 0.0003 batch: 32 
+epochs: 11 val loss: 0.7893613927504596  val f1:0.77510  lr: 0.0003 batch: 32
+epochs: 12 train loss: 0.02157931642936649  train f1: 0.97522  lr: 0.0003 batch: 32 
+epochs: 12 val loss: 0.8087876263786765  val f1:0.79238  lr: 0.0003 batch: 32
+epochs: 0 train loss: 0.6171068110668158  train f1: 0.41985  lr: 0.0003 batch: 16 
+epochs: 0 val loss: 1.1060375072337965  val f1:0.55915  lr: 0.0003 batch: 16
+epochs: 1 train loss: 0.19703571814254037  train f1: 0.73594  lr: 0.0003 batch: 16 
+epochs: 1 val loss: 0.8334535951967593  val f1:0.67058  lr: 0.0003 batch: 16
+epochs: 2 train loss: 0.11321645781880918  train f1: 0.84920  lr: 0.0003 batch: 16 
+epochs: 2 val loss: 0.7533736052336517  val f1:0.71252  lr: 0.0003 batch: 16
+epochs: 3 train loss: 0.08870491660443929  train f1: 0.89780  lr: 0.0003 batch: 16 
+epochs: 3 val loss: 0.9362583301685474  val f1:0.72712  lr: 0.0003 batch: 16
+epochs: 4 train loss: 0.0774668226218282  train f1: 0.91355  lr: 0.0003 batch: 16 
+epochs: 4 val loss: 0.7691744203920718  val f1:0.76809  lr: 0.0003 batch: 16
+epochs: 5 train loss: 0.051357792797231266  train f1: 0.94431  lr: 0.0003 batch: 16 
+epochs: 5 val loss: 0.8993298283329719  val f1:0.76464  lr: 0.0003 batch: 16
+epochs: 6 train loss: 0.05224717815320691  train f1: 0.94628  lr: 0.0003 batch: 16 
+epochs: 6 val loss: 1.037265819973416  val f1:0.75414  lr: 0.0003 batch: 16
+epochs: 7 train loss: 0.06280452146791755  train f1: 0.93330  lr: 0.0003 batch: 16 
+epochs: 7 val loss: 0.7824735570836951  val f1:0.79631  lr: 0.0003 batch: 16
+epochs: 8 train loss: 0.044720867848455734  train f1: 0.95771  lr: 0.0003 batch: 16 
+epochs: 8 val loss: 0.9071153146249282  val f1:0.78042  lr: 0.0003 batch: 16
+epochs: 9 train loss: 0.03404103565097154  train f1: 0.96626  lr: 0.0003 batch: 16 
+epochs: 9 val loss: 0.9836787294458458  val f1:0.79224  lr: 0.0003 batch: 16
+epochs: 10 train loss: 0.037077244900705804  train f1: 0.96105  lr: 0.0003 batch: 16 
+epochs: 10 val loss: 1.1562331729465063  val f1:0.76501  lr: 0.0003 batch: 16
+epochs: 11 train loss: 0.026712335850532523  train f1: 0.96781  lr: 0.0003 batch: 16 
+epochs: 11 val loss: 0.8459990889937792  val f1:0.77390  lr: 0.0003 batch: 16
+epochs: 12 train loss: 0.033899101904800055  train f1: 0.96841  lr: 0.0003 batch: 16 
+epochs: 12 val loss: 0.935202713365908  val f1:0.79964  lr: 0.0003 batch: 16
+epochs: 13 train loss: 0.03760029587365144  train f1: 0.96298  lr: 0.0003 batch: 16 
+epochs: 13 val loss: 0.9887250829626015  val f1:0.79181  lr: 0.0003 batch: 16
+epochs: 14 train loss: 0.03609275750983091  train f1: 0.96422  lr: 0.0003 batch: 16 
+epochs: 14 val loss: 0.9891933865017364  val f1:0.76527  lr: 0.0003 batch: 16
+epochs: 15 train loss: 0.018194259030563296  train f1: 0.98850  lr: 0.0003 batch: 16 
+epochs: 15 val loss: 0.9279733587194371  val f1:0.79205  lr: 0.0003 batch: 16
+epochs: 16 train loss: 0.02293916035471414  train f1: 0.97538  lr: 0.0003 batch: 16 
+epochs: 16 val loss: 0.8470116226761428  val f1:0.80384  lr: 0.0003 batch: 16
+epochs: 17 train loss: 0.028259456009044313  train f1: 0.97124  lr: 0.0003 batch: 16 
+epochs: 17 val loss: 0.9089450187153286  val f1:0.81791  lr: 0.0003 batch: 16
+epochs: 18 train loss: 0.030512138792404185  train f1: 0.97624  lr: 0.0003 batch: 16 
+epochs: 18 val loss: 1.1419186909993486  val f1:0.76485  lr: 0.0003 batch: 16
+epochs: 19 train loss: 0.022607706059838757  train f1: 0.98092  lr: 0.0003 batch: 16 
+epochs: 19 val loss: 1.1519011532818828  val f1:0.79264  lr: 0.0003 batch: 16
+epochs: 20 train loss: 0.02721219875866042  train f1: 0.97052  lr: 0.0003 batch: 16 
+epochs: 20 val loss: 0.9849537928899126  val f1:0.80663  lr: 0.0003 batch: 16
+epochs: 21 train loss: 0.019479662179946892  train f1: 0.98219  lr: 0.0003 batch: 16 
+epochs: 21 val loss: 0.9211478462925664  val f1:0.78599  lr: 0.0003 batch: 16
+epochs: 22 train loss: 0.02263731671093113  train f1: 0.97855  lr: 0.0003 batch: 16 
+epochs: 22 val loss: 1.0372260270295321  val f1:0.77863  lr: 0.0003 batch: 16
+epochs: 23 train loss: 0.019490819173560762  train f1: 0.98021  lr: 0.0003 batch: 16 
+epochs: 23 val loss: 0.7886827579251044  val f1:0.82576  lr: 0.0003 batch: 16
+epochs: 24 train loss: 0.019411098853013765  train f1: 0.97886  lr: 0.0003 batch: 16 
+epochs: 24 val loss: 0.9119585081383034  val f1:0.77406  lr: 0.0003 batch: 16
+epochs: 0 train loss: 0.6171068110668158  train f1: 0.41985  lr: 0.0003 batch: 16 
+epochs: 0 val loss: 1.1060375072337965  val f1:0.55915  lr: 0.0003 batch: 16
+epochs: 1 train loss: 0.19703571814254037  train f1: 0.73594  lr: 0.0003 batch: 16 
+epochs: 1 val loss: 0.8334535951967593  val f1:0.67058  lr: 0.0003 batch: 16
