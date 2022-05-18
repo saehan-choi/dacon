@@ -12,11 +12,11 @@ index,label
 10,bottle-broken_large
 11,wood-good
 12,zipper-rough
-13,screw-thread_side
+13,screw-thread_top
 14,tile-glue_strip
 15,bottle-contamination
 16,grid-bent
-17,carpet-cut
+17,carpet-hole
 18,carpet-good
 19,pill-color
 20,tile-rough
@@ -86,7 +86,7 @@ index,label
 84,transistor-good
 85,bottle-broken_small
 86,zipper-good
-87,carpet-hole
+87,carpet-good
 88,leather-good
 89,zipper-fabric_interior
 90,leather-color
@@ -139,7 +139,7 @@ index,label
 137,bottle-contamination
 138,pill-good
 139,wood-liquid
-140,transistor-good
+140,transistor-cut_lead
 141,hazelnut-good
 142,cable-cut_inner_insulation
 143,cable-good
@@ -151,7 +151,7 @@ index,label
 149,wood-good
 150,zipper-good
 151,wood-scratch
-152,transistor-good
+152,transistor-cut_lead
 153,pill-good
 154,zipper-good
 155,tile-good
@@ -259,7 +259,7 @@ index,label
 257,capsule-good
 258,zipper-split_teeth
 259,hazelnut-good
-260,hazelnut-cut
+260,hazelnut-crack
 261,screw-good
 262,hazelnut-good
 263,hazelnut-cut
@@ -281,7 +281,7 @@ index,label
 279,zipper-squeezed_teeth
 280,pill-combined
 281,leather-color
-282,transistor-good
+282,transistor-bent_lead
 283,pill-pill_type
 284,pill-good
 285,screw-good
@@ -301,7 +301,7 @@ index,label
 299,transistor-good
 300,screw-scratch_neck
 301,leather-poke
-302,zipper-broken_teeth
+302,zipper-good
 303,transistor-good
 304,screw-scratch_head
 305,pill-faulty_imprint
@@ -346,18 +346,18 @@ index,label
 344,screw-good
 345,leather-glue
 346,metal_nut-flip
-347,metal_nut-bent
+347,metal_nut-good
 348,hazelnut-good
 349,pill-pill_type
 350,carpet-thread
 351,cable-cable_swap
 352,cable-good
-353,capsule-good
+353,capsule-scratch
 354,carpet-good
 355,capsule-poke
 356,cable-good
 357,pill-good
-358,bottle-good
+358,bottle-contamination
 359,toothbrush-defective
 360,transistor-cut_lead
 361,capsule-crack
@@ -405,7 +405,7 @@ index,label
 403,zipper-combined
 404,bottle-contamination
 405,tile-good
-406,pill-crack
+406,pill-good
 407,capsule-scratch
 408,leather-good
 409,pill-good
@@ -442,7 +442,7 @@ index,label
 440,pill-color
 441,tile-oil
 442,transistor-good
-443,screw-manipulated_front
+443,screw-good
 444,transistor-bent_lead
 445,transistor-cut_lead
 446,carpet-good
@@ -483,18 +483,18 @@ index,label
 481,screw-thread_side
 482,carpet-hole
 483,cable-good
-484,screw-good
+484,screw-scratch_head
 485,screw-good
 486,cable-good
 487,grid-good
 488,hazelnut-hole
 489,pill-faulty_imprint
 490,carpet-hole
-491,cable-missing_wire
+491,cable-poke_insulation
 492,cable-cut_inner_insulation
 493,screw-good
 494,hazelnut-good
-495,capsule-good
+495,capsule-squeeze
 496,transistor-cut_lead
 497,toothbrush-defective
 498,cable-cut_inner_insulation
@@ -510,7 +510,7 @@ index,label
 508,toothbrush-good
 509,leather-poke
 510,capsule-good
-511,screw-manipulated_front
+511,screw-good
 512,transistor-misplaced
 513,transistor-good
 514,transistor-good
@@ -560,7 +560,7 @@ index,label
 558,zipper-broken_teeth
 559,screw-good
 560,leather-glue
-561,capsule-scratch
+561,capsule-faulty_imprint
 562,leather-good
 563,carpet-metal_contamination
 564,cable-good
@@ -592,7 +592,7 @@ index,label
 590,screw-good
 591,hazelnut-cut
 592,cable-good
-593,zipper-broken_teeth
+593,zipper-split_teeth
 594,zipper-good
 595,metal_nut-good
 596,carpet-metal_contamination
@@ -635,7 +635,7 @@ index,label
 633,screw-scratch_neck
 634,zipper-broken_teeth
 635,leather-good
-636,cable-combined
+636,cable-missing_wire
 637,capsule-good
 638,carpet-metal_contamination
 639,leather-poke
@@ -722,7 +722,7 @@ index,label
 720,capsule-good
 721,transistor-good
 722,screw-manipulated_front
-723,transistor-misplaced
+723,transistor-good
 724,zipper-fabric_border
 725,transistor-good
 726,pill-crack
@@ -844,7 +844,7 @@ index,label
 842,screw-good
 843,screw-manipulated_front
 844,tile-crack
-845,transistor-bent_lead
+845,transistor-good
 846,leather-color
 847,bottle-contamination
 848,tile-oil
@@ -873,7 +873,7 @@ index,label
 871,leather-cut
 872,pill-good
 873,pill-faulty_imprint
-874,pill-color
+874,metal_nut-color
 875,carpet-good
 876,screw-thread_top
 877,wood-hole
@@ -892,7 +892,7 @@ index,label
 890,transistor-good
 891,zipper-good
 892,leather-good
-893,cable-good
+893,cable-poke_insulation
 894,leather-cut
 895,screw-good
 896,pill-scratch
@@ -908,7 +908,7 @@ index,label
 906,leather-fold
 907,capsule-crack
 908,screw-scratch_neck
-909,metal_nut-scratch
+909,metal_nut-good
 910,tile-glue_strip
 911,pill-good
 912,zipper-broken_teeth
@@ -1000,7 +1000,7 @@ index,label
 998,leather-fold
 999,screw-good
 1000,leather-cut
-1001,capsule-good
+1001,capsule-squeeze
 1002,leather-good
 1003,metal_nut-color
 1004,wood-good
@@ -1015,7 +1015,7 @@ index,label
 1013,cable-good
 1014,leather-good
 1015,screw-scratch_neck
-1016,pill-crack
+1016,pill-good
 1017,zipper-squeezed_teeth
 1018,hazelnut-crack
 1019,pill-contamination
@@ -1113,7 +1113,7 @@ index,label
 1111,transistor-good
 1112,wood-liquid
 1113,metal_nut-good
-1114,bottle-good
+1114,bottle-contamination
 1115,carpet-good
 1116,cable-cut_outer_insulation
 1117,cable-good
@@ -1132,7 +1132,7 @@ index,label
 1130,transistor-good
 1131,cable-good
 1132,cable-good
-1133,toothbrush-defective
+1133,toothbrush-good
 1134,screw-thread_side
 1135,transistor-good
 1136,wood-good
@@ -1172,7 +1172,7 @@ index,label
 1170,zipper-good
 1171,cable-good
 1172,wood-good
-1173,screw-thread_side
+1173,screw-thread_top
 1174,tile-oil
 1175,pill-faulty_imprint
 1176,leather-poke
@@ -1222,7 +1222,7 @@ index,label
 1220,pill-good
 1221,metal_nut-bent
 1222,pill-crack
-1223,capsule-good
+1223,capsule-crack
 1224,cable-cut_inner_insulation
 1225,cable-good
 1226,capsule-good
@@ -1256,7 +1256,7 @@ index,label
 1254,wood-good
 1255,screw-good
 1256,leather-good
-1257,transistor-bent_lead
+1257,transistor-good
 1258,leather-good
 1259,cable-good
 1260,screw-scratch_neck
@@ -1269,7 +1269,7 @@ index,label
 1267,tile-glue_strip
 1268,capsule-good
 1269,tile-good
-1270,zipper-broken_teeth
+1270,zipper-split_teeth
 1271,hazelnut-print
 1272,leather-poke
 1273,pill-scratch
@@ -1467,7 +1467,7 @@ index,label
 1465,leather-poke
 1466,hazelnut-good
 1467,zipper-broken_teeth
-1468,transistor-good
+1468,transistor-cut_lead
 1469,bottle-contamination
 1470,transistor-good
 1471,wood-good
@@ -1565,7 +1565,7 @@ index,label
 1563,leather-good
 1564,toothbrush-good
 1565,leather-good
-1566,wood-hole
+1566,wood-combined
 1567,grid-good
 1568,pill-scratch
 1569,hazelnut-good
@@ -1708,7 +1708,7 @@ index,label
 1706,screw-good
 1707,cable-bent_wire
 1708,toothbrush-defective
-1709,bottle-broken_large
+1709,bottle-broken_small
 1710,leather-color
 1711,screw-good
 1712,carpet-cut
@@ -1718,7 +1718,7 @@ index,label
 1716,screw-thread_top
 1717,leather-poke
 1718,cable-good
-1719,grid-glue
+1719,grid-broken
 1720,tile-gray_stroke
 1721,hazelnut-good
 1722,hazelnut-hole
@@ -1736,7 +1736,7 @@ index,label
 1734,cable-good
 1735,screw-good
 1736,metal_nut-flip
-1737,transistor-good
+1737,transistor-bent_lead
 1738,zipper-good
 1739,leather-fold
 1740,hazelnut-good
@@ -1756,7 +1756,7 @@ index,label
 1754,hazelnut-hole
 1755,carpet-good
 1756,screw-good
-1757,cable-good
+1757,cable-poke_insulation
 1758,tile-good
 1759,zipper-good
 1760,wood-good
@@ -1771,7 +1771,7 @@ index,label
 1769,zipper-fabric_interior
 1770,carpet-good
 1771,wood-scratch
-1772,capsule-squeeze
+1772,capsule-good
 1773,screw-scratch_head
 1774,cable-good
 1775,metal_nut-color
@@ -1844,7 +1844,7 @@ index,label
 1842,pill-pill_type
 1843,transistor-good
 1844,screw-good
-1845,screw-thread_side
+1845,screw-scratch_neck
 1846,leather-cut
 1847,pill-color
 1848,pill-combined
@@ -1926,7 +1926,7 @@ index,label
 1924,cable-good
 1925,grid-glue
 1926,leather-fold
-1927,pill-good
+1927,pill-scratch
 1928,bottle-good
 1929,screw-good
 1930,transistor-good
@@ -1990,7 +1990,7 @@ index,label
 1988,cable-good
 1989,carpet-good
 1990,zipper-squeezed_teeth
-1991,cable-good
+1991,cable-poke_insulation
 1992,cable-cut_outer_insulation
 1993,transistor-good
 1994,bottle-good
@@ -2066,7 +2066,7 @@ index,label
 2064,metal_nut-color
 2065,zipper-good
 2066,capsule-faulty_imprint
-2067,hazelnut-cut
+2067,hazelnut-crack
 2068,grid-metal_contamination
 2069,pill-color
 2070,zipper-squeezed_teeth
@@ -2087,7 +2087,7 @@ index,label
 2085,zipper-squeezed_teeth
 2086,transistor-damaged_case
 2087,hazelnut-cut
-2088,screw-good
+2088,screw-thread_side
 2089,capsule-good
 2090,capsule-crack
 2091,carpet-good

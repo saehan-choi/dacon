@@ -175,7 +175,7 @@ def objective(trial):
 
     # # 검증시 사용
     lr = 3e-4
-    epochs = 23
+    epochs = 17
     optimizer = optim.Adam(model.parameters(),lr=lr)
     batch_size = 16
     

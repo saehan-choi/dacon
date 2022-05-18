@@ -50,15 +50,15 @@ set_seed(seed)
  
 ########## 실제 자료 이용시에는 train,test ORIGINAL을 이용하세요.###########
 ########## 테스트 자료 이용시에는 train,test 이용하세요.###########
-# pathTrain = './anomaly_detection/dataset/train/'
+pathTrain = './anomaly_detection/dataset/train/'
 # pathTrain = './anomaly_detection/dataset/train_original/'
-# pathTest = './anomaly_detection/dataset/test/'
+pathTest = './anomaly_detection/dataset/test/'
 # pathTest = './anomaly_detection/dataset/test_original/'
 
 
 # # # 변경됨
-pathTrain = './anomaly_detection/dataset/train_with_affine_aug/'
-pathTest = './anomaly_detection/dataset/test_original/'
+# pathTrain = './anomaly_detection/dataset/train_with_affine_aug/'
+# pathTest = './anomaly_detection/dataset/test_original/'
 
 # 단순히 lr만 3e-4로 바꿨을뿐인데 0.61 -> 0.71로 성능향상 ㄷㄷ?;;
 # -> 거기에 image augmentation 적용 -> 0.83 ㄷㄷ
@@ -79,7 +79,7 @@ train_y = pd.read_csv(pathLabel+"train_with_affine_aug.csv")
 # 변경됨
 train_labels = train_y["label"]
 
-val_y = pd.read_csv(pathLabel+"baseline_test.csv")
+val_y = pd.read_csv(pathLabel+"human_label.csv")
 val_labels = val_y["label"]
 
 label_unique = sorted(np.unique(train_labels))
@@ -180,6 +180,7 @@ class Custom_dataset(Dataset):
         img = transforms.ToTensor()(img)
         img = transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))(img)
         label = self.labels[idx]
+        print(f'label:{label}')
         return img, label
     
 class Network(nn.Module):
