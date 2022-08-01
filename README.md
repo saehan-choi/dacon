@@ -1,5 +1,11 @@
 # dacon
 
+
+폴더구조 : https://data-newbie.tistory.com/614
+이런식으로 정리 할 것
+
+
+
 481팀의 참가
 30등 달성!
 
