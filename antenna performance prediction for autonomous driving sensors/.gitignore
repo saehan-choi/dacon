@@ -1,3 +1,10 @@
 __pycache__/
 dataset/
 
+data/processed/
+data/raw/
+
+
+test/EDA.csv
+test/statistics.csv
+

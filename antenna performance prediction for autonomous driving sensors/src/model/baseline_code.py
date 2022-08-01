@@ -3,36 +3,50 @@ import random
 import os
 import numpy as np
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.multioutput import MultiOutputRegressor
 
+
 class CFG:
-    trainsetPath = './antenna performance prediction for autonomous driving sensors/dataset/train.csv'
-    testsetPath = './antenna performance prediction for autonomous driving sensors/dataset/test.csv'
-    
-    
-def seed_everything(seed):
+    datapath = "antenna performance prediction for autonomous driving sensors/data/"
+    trainpath = datapath+'raw/train.csv'
+    testpath = datapath+'raw/test.csv'
+    submission = datapath+'raw/sample_submission.csv'
+    outpath = datapath+'processed/'
+
+def seedEverything(seed):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
     
-if __name__ == "__main__":
-    seed_everything(42) # Seed 고정
+def standardization(df):
+    return (df-df.mean(numeric_only=True))/df.std(numeric_only=True)
 
-    train_df = pd.read_csv(CFG.trainsetPath)
-
-    train_x = train_df.filter(regex='X') # Input : X Featrue
-    train_y = train_df.filter(regex='Y') # Output : Y Feature
-
+def normalization(df):
+    return (df-df.min())/(df.max()-df.min())
+    
+def baseLine(train_x, train_y):
     LR = MultiOutputRegressor(LinearRegression()).fit(train_x, train_y)
-    print('Done.')
-    test_x = pd.read_csv(CFG.testsetPath).drop(columns=['ID'])
+    test_x = pd.read_csv(CFG.testpath).drop(columns=['ID'])
     preds = LR.predict(test_x)
-    print('Done.')
-    submit = pd.read_csv('./antenna performance prediction for autonomous driving sensors/dataset/sample_submission.csv')
+    submit = pd.read_csv(CFG.submission)
     for idx, col in enumerate(submit.columns):
         if col=='ID':
             continue
         submit[col] = preds[:,idx-1]
-    print('Done.')
-    submit.to_csv('./submit.csv', index=False)
+    return submit
+
+def baseLine2():
+    # here you can access 
+    pass
+
+if __name__ == "__main__":
+    seedEverything(42) # Seed 고정
+    train_df = pd.read_csv(CFG.trainpath)
+
+    train_x = train_df.filter(regex='X') # Input : X Featrue
+    train_y = train_df.filter(regex='Y') # Output : Y Feature
+
+    submit = baseLine(train_x, train_y)
+    submit.to_csv(CFG.outpath+'submit.csv', index=False)
+
