@@ -25,10 +25,11 @@ class NeuralNet(nn.Module):
 
     def __init__(self):
         super(NeuralNet, self).__init__()
-        self.fc1 = nn.Linear(51, 512)
+        self.fc1 = nn.Linear(56, 512)
         self.layer1 = self.make_layers(512, num_repeat=4)
-        self.fc5 = nn.Linear(512, 1)
         self.relu = nn.ReLU(inplace=True)
+        self.fc5 = nn.Linear(512, 14)
+        
 
     def forward(self, x):
         x = self.fc1(x)
@@ -52,8 +53,11 @@ def numpy_to_tensor(variable):
     x = torch.from_numpy(x)
     return x
 
+def pandas_to_tensor(variable):
+    return torch.tensor(variable.values)
+
 class CFG:
-    datapath = "antenna performance prediction for autonomous driving sensors/data/"
+    datapath = "antenna performance inputiction for autonomous driving sensors/data/"
     trainpath = datapath+'raw/train.csv'
     testpath = datapath+'raw/test.csv'
     submission = datapath+'raw/sample_submission.csv'
@@ -61,54 +65,55 @@ class CFG:
 
 if __name__ == '__main__':
     seedEverything(42)
-    train_df = pd.read_csv(CFG.trainpath)
+    train_df = pd.read_csv(CFG.trainpath)    
     # shuffle 
     train_df = train_df.sample(frac=1)
-    # only X
+    # only make X, Y
     train_df_X = train_df.filter(regex='X')
     train_df_Y = train_df.filter(regex='Y')
-
     valset_ratio = round(len(train_df_X)*0.15)
-    print(train_df_X(round(len(train_df_X)*0.15)))
-
-
-# train_data = train_data.iloc[:]
-# train_label_data = train_label_data.iloc[:]
-
-# train_data = numpy_to_tensor(train_data)
-# train_label_data = numpy_to_tensor(train_label_data)
-
-# device = torch.device('cuda')
-# net = NeuralNet()
-# net = net.to(device)
-
-
-# criterion = nn.L1Loss().cuda()
-# # in this competition loss function is MAE Loss so I used it.
-# optimizer = optim.Adam(net.parameters(),lr=1e-3)
-# num_epochs = 25
-# batch_size = 80
-# batch_num_train = len(train_data) // batch_size
-# batch_num_val = len(val_data) // batch_size
-
-# for epochs in range(num_epochs):
-#     train_loss = 0.0
-#     test_loss = 0.0
-#     for i in range(batch_num_train):
-#         start = i * batch_size
-#         end = start + batch_size
-#         pred = train_data[start:end][:]
-#         label = train_label_data[start:end]
-#         pred, label = pred.to(device), label.to(device)
-#         outputs = net(pred).squeeze()
-#         loss = criterion(outputs, label)
-#         optimizer.zero_grad()
-#         loss.backward()
-#         optimizer.step()
-#         train_loss += loss.item()
-
-#     print(f'epochs : {epochs}')
-#     print(f'train_loss : {train_loss/batch_num_train}')
     
-# PATH = './weights/'
-# torch.save(net.state_dict(), PATH+'model_alot_of_feature.pt')
+    val_df_X = pandas_to_tensor(train_df_X.iloc[:valset_ratio])
+    val_df_Y = pandas_to_tensor(train_df_Y.iloc[:valset_ratio])
+
+    train_df_X = pandas_to_tensor(train_df_X.iloc[valset_ratio:])
+    train_df_Y = pandas_to_tensor(train_df_Y.iloc[valset_ratio:])
+    
+    device = torch.device('cuda')
+    net = NeuralNet()
+    net = net.to(device)
+
+    criterion = nn.L1Loss().cuda()
+    # in this competition loss function is MAE Loss so I used it.
+    optimizer = optim.Adam(net.parameters(),lr=1e-3)
+    num_epochs = 100
+    batch_size = 80
+    batch_num_train = len(train_df_X) // batch_size
+    batch_num_val = len(val_df_X) // batch_size
+    
+    for epochs in range(num_epochs):
+        train_loss = 0.0
+        test_loss = 0.0
+        net.train()
+        for i in range(batch_num_train):
+            start = i * batch_size
+            end = start + batch_size
+            input = train_df_X[start:end]
+            label = train_df_Y[start:end]
+            print(input.size())
+            print(label.size())
+            input, label = input.to(device), label.to(device)
+            outputs = net(input).squeeze()
+            loss = criterion(outputs, label)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            train_loss += loss.item()
+
+        with torch.no_grad():
+            net.eval()
+            print(f'epochs : {epochs}')
+            print(f'train_loss : {train_loss/batch_num_train}')
+        
+    PATH = './weights/'
+    torch.save(net.state_dict(), PATH+'model_alot_of_feature.pt')
