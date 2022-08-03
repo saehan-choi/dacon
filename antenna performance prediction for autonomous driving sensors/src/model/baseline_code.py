@@ -51,8 +51,11 @@ def baseLine2(train_x, train_y):
     return submit
 
 def report():
-    # {BayesianRidge-> 1.9749297768
+    # {
+    # baseline -> 1.9746318023
+    # BayesianRidge-> 1.9749297768
     # ['X_02','X_04','X_10','X_11','X_23','X_46','X_47','X_48'] Drop -> 1.9746318023
+    #  +'X_19','X_20','X_21','X_22' drop ( 상관관계가 좀 높은 컬럼 )-> 1.9801777406
     # }
     pass
 
