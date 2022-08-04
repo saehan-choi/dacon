@@ -106,7 +106,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
 
 def datapreparation(train_df):
     # shuffle
-    valset_ratio = 0.15
+    valset_ratio = 0.20
     train_df = train_df.sample(frac=1)
 
     train_df_X = train_df.filter(regex='X')
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     model = NeuralNet()
     model = model.to(CFG.device)
-    optimizer = optim.SGD(model.parameters(),lr=6.598798142157484e-05)
+    optimizer = optim.Adam(model.parameters(),lr=0.00022710892205749178)
     criterion = nn.L1Loss().cuda()
 
     num_epochs = 50
