@@ -98,6 +98,26 @@ def model_import(weight_path):
 
     return model
     
+
+# def make_batch(tensor, batch=2000):
+#     # batch size는 조절가능합니다.
+    
+#     arr = []
+#     for i in range(len(tensor)//batch):
+#         if i == (len(tensor)//batch-1):
+#             arr.append(tensor[i*batch:])
+#         else:
+#             arr.append(tensor[i*batch:(i+1)*batch])
+#     return arr
+
+def submission_report(output):
+    submit = pd.read_csv(CFG.submission)
+    for idx, col in enumerate(submit.columns):
+        if col=='ID':
+            continue
+        submit[col] = output[:,idx-1]
+    return submit
+
 if __name__ == '__main__':
     seedEverything(42)
 
@@ -107,10 +127,15 @@ if __name__ == '__main__':
     weight_name = '179_neuralnet.pt'
     model = model_import(weight_name)
 
+    
+    
     with torch.no_grad():
         model.eval()
+        batch = test_df_X.to(CFG.device, dtype=torch.float)
+        output = model(batch)
+    
+    output = output.detach().cpu().numpy()
+    
+    submission = submission_report(output)
+    submission.to_csv(CFG.outPath+'submit_nn.csv', index=False)
 
-        for batch in test_df_X:
-            batch = batch.to(CFG.device, dtype=torch.float)
-            output = model(batch)
-            print(output)

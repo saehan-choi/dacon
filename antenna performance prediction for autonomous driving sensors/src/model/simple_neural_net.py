@@ -148,8 +148,6 @@ if __name__ == '__main__':
         report_txt()
         
         gc.collect()
-        
-        
         torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet.pt')
         
         
