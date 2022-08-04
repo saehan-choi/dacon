@@ -27,7 +27,7 @@ class CFG:
     weightsavePath = dataPath+'weights/'
     
     device = 'cuda'
-    
+
 def seedEverything(random_seed):
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed(random_seed)
@@ -90,7 +90,7 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         optimizer.step()
         train_loss += loss.item()
     print(f"train_loss : {train_loss}")
-    
+
 def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
     model.eval()
     with torch.no_grad():
@@ -107,7 +107,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             val_loss += loss.item()
         print(f"val_loss : {val_loss}")
     return val_loss
-    
+
     
 
 def datapreparation(train_df):
@@ -130,13 +130,12 @@ def datapreparation(train_df):
 def tunning(trial):
 
 
-    lr = trial.suggest_float("lr", 1e-4, 1e-2)
+    lr = trial.suggest_float("lr", 1e-4, 1e-3)
     optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
     optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
-    
-    
+
     criterion = nn.L1Loss().cuda()
-    
+
     for epoch in range(num_epochs):
         print(f"epoch:{epoch}")
         train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
@@ -145,12 +144,12 @@ def tunning(trial):
         # torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet_optuna.pt')
         if trial.should_prune():
             raise optuna.exceptions.TrialPruned()
-        
+
     return val_loss
 
 
 if __name__ == '__main__':
-    seedEverything(42)
+    seedEverything(52)
     model = NeuralNet()
     model = model.to(CFG.device)    
     train_df = pd.read_csv(CFG.trainPath)    

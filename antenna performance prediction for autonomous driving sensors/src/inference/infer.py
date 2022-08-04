@@ -68,40 +68,6 @@ def numpy_to_tensor(variable):
 def pandas_to_tensor(variable):
     return torch.tensor(variable.values)
 
-def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
-    model.train()
-    train_loss = 0.0
-    for i in range(train_batch):
-        start = i * batch_size
-        end = start + batch_size
-        input = train_X[start:end].to(device, dtype=torch.float)
-        label = train_Y[start:end].to(device, dtype=torch.float)
-
-        input, label = input.to(device), label.to(device)
-        outputs = model(input).squeeze()
-        loss = criterion(outputs, label)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        train_loss += loss.item()
-    print(f"train_loss : {train_loss}")
-    
-def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
-    model.eval()
-    with torch.no_grad():
-        val_loss = 0.0
-        for i in range(val_batch):
-            start = i * batch_size
-            end = start + batch_size
-            input = val_X[start:end].to(device, dtype=torch.float)
-            label = val_Y[start:end].to(device, dtype=torch.float)
-
-            input, label = input.to(device), label.to(device)
-            outputs = model(input).squeeze()
-            loss = criterion(outputs, label)
-            val_loss += loss.item()
-    print(f"val_loss : {val_loss}")
-    
 def datapreparation(train_df):
     # shuffle
     valset_ratio = 0.15
@@ -119,40 +85,32 @@ def datapreparation(train_df):
 
     return train_df_X, train_df_Y, val_df_X, val_df_Y
 
-def report_txt():
-    f = open()
-    f.write()
-    # epoch 기록남길것... 이거 안남기니깐 금방사라짐.
-    pass
+def testdata_prepation(test_df):
+    test_df_X = test_df.filter(regex='X')
+    test_df_X = pandas_to_tensor(test_df_X)
+    
+    return test_df_X
 
+def model_import(weight_path):
+    model = NeuralNet()
+    model.load_state_dict(torch.load(CFG.weightsavePath+weight_path))
+    model = model.to(CFG.device)
+
+    return model
+    
 if __name__ == '__main__':
     seedEverything(42)
-    train_df = pd.read_csv(CFG.trainPath)    
-    train_df_X, train_df_Y, val_df_X, val_df_Y = datapreparation(train_df)
 
-    model = NeuralNet()
-    model = model.to(CFG.device)
-    optimizer = optim.Adam(model.parameters(),lr=3e-4)
-    criterion = nn.L1Loss().cuda()
+    test_df = pd.read_csv(CFG.testPath)
+    test_df_X = testdata_prepation(test_df)
+    
+    weight_name = '179_neuralnet.pt'
+    model = model_import(weight_name)
 
-    num_epochs = 300
-    batch_size = 2048
-    
-    train_batch = len(train_df_X) // batch_size
-    val_batch = len(val_df_X) // batch_size
-    
-    for epoch in range(num_epochs):
-        print(f"epoch:{epoch}")
-        train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
-        val_one_epoch(model, val_batch, criterion, val_df_X, val_df_Y, CFG.device)
-        report_txt()
-        
-        gc.collect()
-        
-        
-        torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet.pt')
-        
-        
-        print('\n')
-    
-    # PATH = './weights/'
+    with torch.no_grad():
+        model.eval()
+
+        for batch in test_df_X:
+            batch = batch.to(CFG.device, dtype=torch.float)
+            output = model(batch)
+            print(output)
