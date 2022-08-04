@@ -98,18 +98,6 @@ def model_import(weight_path):
 
     return model
     
-
-# def make_batch(tensor, batch=2000):
-#     # batch size는 조절가능합니다.
-    
-#     arr = []
-#     for i in range(len(tensor)//batch):
-#         if i == (len(tensor)//batch-1):
-#             arr.append(tensor[i*batch:])
-#         else:
-#             arr.append(tensor[i*batch:(i+1)*batch])
-#     return arr
-
 def submission_report(output):
     submit = pd.read_csv(CFG.submission)
     for idx, col in enumerate(submit.columns):
@@ -124,7 +112,9 @@ if __name__ == '__main__':
     test_df = pd.read_csv(CFG.testPath)
     test_df_X = testdata_prepation(test_df)
     
-    weight_name = '179_neuralnet.pt'
+    # weight_name = '179_neuralnet.pt' -> 1.82 best val set
+    weight_name = '63_neuralnet.pt'
+    
     model = model_import(weight_name)
 
     

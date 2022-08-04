@@ -13,6 +13,8 @@ from tqdm import tqdm
 
 import gc
 
+import pandas as pd
+
 class CFG:
     dataPath = "antenna performance prediction for autonomous driving sensors/data/"
     trainPath = dataPath+'raw/train.csv'
@@ -22,17 +24,6 @@ class CFG:
     weightsavePath = dataPath+'weights/'
     
     device = 'cuda'
-    
-def seedEverything(random_seed):
-    torch.manual_seed(random_seed)
-    torch.cuda.manual_seed(random_seed)
-    torch.cuda.manual_seed_all(random_seed) # if use multi-GPU
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-    random.seed(random_seed)
-    os.environ['PYTHONHASHSEED'] = str(random_seed)
-    np.random.seed(random_seed)    
-    # np.random.seed(random_seed)
 
 class NeuralNet(nn.Module):
     def __init__(self):
@@ -58,6 +49,17 @@ class NeuralNet(nn.Module):
             layers.append(nn.Linear(value, value))
             layers.append(nn.ReLU(inplace=True))
         return nn.Sequential(*layers)
+    
+def seedEverything(random_seed):
+    torch.manual_seed(random_seed)
+    torch.cuda.manual_seed(random_seed)
+    torch.cuda.manual_seed_all(random_seed) # if use multi-GPU
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    random.seed(random_seed)
+    os.environ['PYTHONHASHSEED'] = str(random_seed)
+    np.random.seed(random_seed)    
+    # np.random.seed(random_seed)
 
 def numpy_to_tensor(variable):
     x = variable.values
@@ -101,7 +103,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             loss = criterion(outputs, label)
             val_loss += loss.item()
     print(f"val_loss : {val_loss}")
-    
+
 def datapreparation(train_df):
     # shuffle
     valset_ratio = 0.15
@@ -120,8 +122,10 @@ def datapreparation(train_df):
     return train_df_X, train_df_Y, val_df_X, val_df_Y
 
 def report_txt():
-    f = open()
+    f = open(CFG.outPath+'report.txt', 'a')
+    # pd.
     f.write()
+
     # epoch 기록남길것... 이거 안남기니깐 금방사라짐.
     pass
 
@@ -132,11 +136,11 @@ if __name__ == '__main__':
 
     model = NeuralNet()
     model = model.to(CFG.device)
-    optimizer = optim.Adam(model.parameters(),lr=3e-4)
+    optimizer = optim.SGD(model.parameters(),lr=6.598798142157484e-05)
     criterion = nn.L1Loss().cuda()
 
-    num_epochs = 300
-    batch_size = 2048
+    num_epochs = 50
+    batch_size = 4096
     
     train_batch = len(train_df_X) // batch_size
     val_batch = len(val_df_X) // batch_size
@@ -145,12 +149,11 @@ if __name__ == '__main__':
         print(f"epoch:{epoch}")
         train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
         val_one_epoch(model, val_batch, criterion, val_df_X, val_df_Y, CFG.device)
-        report_txt()
+        # report_txt()
         
         gc.collect()
         torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet.pt')
-        
-        
+
         print('\n')
     
     # PATH = './weights/'

@@ -19,7 +19,7 @@ import joblib
 import gc
 
 class CFG:
-    dataPath = "antenna performance prediction for autonomous driving sensors/data/"
+    dataPath = "aa/data/"
     trainPath = dataPath+'raw/train.csv'
     testPath = dataPath+'raw/test.csv'
     submission = dataPath+'raw/sample_submission.csv'
@@ -27,7 +27,7 @@ class CFG:
     weightsavePath = dataPath+'weights/'
     
     device = 'cuda'
-
+    
 def seedEverything(random_seed):
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed(random_seed)
@@ -75,7 +75,7 @@ def pandas_to_tensor(variable):
 
 def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
     model.train()
-    train_loss = 0.0
+    train_loss = 0
     for i in range(train_batch):
         start = i * batch_size
         end = start + batch_size
@@ -90,11 +90,11 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         optimizer.step()
         train_loss += loss.item()
     print(f"train_loss : {train_loss}")
-
+    
 def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
     model.eval()
+    val_loss = 0
     with torch.no_grad():
-        val_loss = 0.0
         for i in range(val_batch):
             start = i * batch_size
             end = start + batch_size
@@ -107,7 +107,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             val_loss += loss.item()
         print(f"val_loss : {val_loss}")
     return val_loss
-
+    
     
 
 def datapreparation(train_df):
@@ -130,33 +130,33 @@ def datapreparation(train_df):
 def tunning(trial):
 
 
-    lr = trial.suggest_float("lr", 1e-4, 1e-3)
-    optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
+    lr = trial.suggest_float("lr", 1e-5, 1e-3)
+    optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "SGD"])
     optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
-
+    
+    
     criterion = nn.L1Loss().cuda()
-
+    
     for epoch in range(num_epochs):
         print(f"epoch:{epoch}")
         train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
-        val_loss = val_one_epoch(model, train_batch, criterion, train_df_X, train_df_Y,  CFG.device)
-        gc.collect()
+        val_loss_result = val_one_epoch(model, val_batch, criterion, val_df_X, val_df_Y, CFG.device)
+        # gc.collect()
         # torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet_optuna.pt')
         if trial.should_prune():
             raise optuna.exceptions.TrialPruned()
-
-    return val_loss
-
+        
+    return val_loss_result
 
 if __name__ == '__main__':
-    seedEverything(52)
+    seedEverything(42)
     model = NeuralNet()
     model = model.to(CFG.device)    
     train_df = pd.read_csv(CFG.trainPath)    
     train_df_X, train_df_Y, val_df_X, val_df_Y = datapreparation(train_df)
 
     num_epochs = 50
-    batch_size = 2048
+    batch_size = 4096 
 
     train_batch = len(train_df_X) // batch_size
     val_batch = len(val_df_X) // batch_size
