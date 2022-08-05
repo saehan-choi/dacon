@@ -53,6 +53,8 @@ class NeuralNet(nn.Module):
         x = self.fc1(x)
         x = self.relu(x)
         x = self.layer1(x)
+        # x = nn.Dropout(0.4)(x)
+        # we higher up the drop ratio, because over fitting..!
         x = nn.Dropout(0.2)(x)
         x = self.fc5(x)
         return x
@@ -76,7 +78,7 @@ def pandas_to_tensor(variable):
 def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
     model.train()
     train_loss = 0
-    for i in range(train_batch):
+    for i in range(train_batch+1):
         start = i * batch_size
         end = start + batch_size
         input = train_X[start:end].to(device, dtype=torch.float)
@@ -89,22 +91,25 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         loss.backward()
         optimizer.step()
         train_loss += loss.item()
+    train_loss = train_loss/(train_batch+1)
     print(f"train_loss : {train_loss}")
     
 def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
     model.eval()
     val_loss = 0
+    
     with torch.no_grad():
-        for i in range(val_batch):
+        for i in range(val_batch+1):
             start = i * batch_size
             end = start + batch_size
+
             input = val_X[start:end].to(device, dtype=torch.float)
             label = val_Y[start:end].to(device, dtype=torch.float)
-
             input, label = input.to(device), label.to(device)
             outputs = model(input).squeeze()
             loss = criterion(outputs, label)
             val_loss += loss.item()
+        val_loss = val_loss/(val_batch+1)
         print(f"val_loss : {val_loss}")
     return val_loss
     
@@ -112,7 +117,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
 
 def datapreparation(train_df):
     # shuffle
-    valset_ratio = 0.15
+    valset_ratio = 0.2
     train_df = train_df.sample(frac=1)
 
     train_df_X = train_df.filter(regex='X')
@@ -128,20 +133,21 @@ def datapreparation(train_df):
     return train_df_X, train_df_Y, val_df_X, val_df_Y
 
 def tunning(trial):
+    seedEverything(42)
 
-
+    model = NeuralNet()
+    model = model.to(CFG.device)
     lr = trial.suggest_float("lr", 1e-5, 1e-3)
     optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "SGD"])
     optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
     
-    
-    criterion = nn.L1Loss().cuda()
-    
+    criterion = nn.MSELoss().cuda()
+
     for epoch in range(num_epochs):
         print(f"epoch:{epoch}")
         train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
         val_loss_result = val_one_epoch(model, val_batch, criterion, val_df_X, val_df_Y, CFG.device)
-        # gc.collect()
+        
         # torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet_optuna.pt')
         if trial.should_prune():
             raise optuna.exceptions.TrialPruned()
@@ -149,18 +155,16 @@ def tunning(trial):
     return val_loss_result
 
 if __name__ == '__main__':
-    seedEverything(42)
-    model = NeuralNet()
-    model = model.to(CFG.device)    
+
+ 
     train_df = pd.read_csv(CFG.trainPath)    
     train_df_X, train_df_Y, val_df_X, val_df_Y = datapreparation(train_df)
 
     num_epochs = 50
-    batch_size = 4096 
+    batch_size = 4096
 
     train_batch = len(train_df_X) // batch_size
     val_batch = len(val_df_X) // batch_size
-
 
     study = optuna.create_study(direction='minimize')
     study.optimize(tunning)
@@ -185,3 +189,6 @@ if __name__ == '__main__':
 
     
     tunning()
+
+
+    

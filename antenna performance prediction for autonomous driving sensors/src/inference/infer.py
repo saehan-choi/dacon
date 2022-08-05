@@ -48,7 +48,7 @@ class NeuralNet(nn.Module):
         x = self.fc1(x)
         x = self.relu(x)
         x = self.layer1(x)
-        x = nn.Dropout(0.8)(x)
+        x = nn.Dropout(0.5)(x)
         # we higher up the drop ratio, because over fitting..!
         # x = nn.Dropout(0.2)(x)
         x = self.fc5(x)
@@ -109,18 +109,16 @@ def submission_report(output):
     return submit
 
 if __name__ == '__main__':
-    seedEverything(42)
+    seedEverything(52)
 
     test_df = pd.read_csv(CFG.testPath)
     test_df_X = testdata_prepation(test_df)
     
     # weight_name = '179_neuralnet.pt' -> 1.82 best val set
-    weight_name = '12_neuralnet.pt'
+    weight_name = '13_neuralnet.pt'
     
     model = model_import(weight_name)
 
-    
-    
     with torch.no_grad():
         model.eval()
         batch = test_df_X.to(CFG.device, dtype=torch.float)
