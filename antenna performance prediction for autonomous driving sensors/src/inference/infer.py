@@ -115,7 +115,7 @@ if __name__ == '__main__':
     test_df_X = testdata_prepation(test_df)
     
     # weight_name = '179_neuralnet.pt' -> 1.82 best val set
-    weight_name = '13_neuralnet.pt'
+    weight_name = '49_neuralnet.pt'
     
     model = model_import(weight_name)
 

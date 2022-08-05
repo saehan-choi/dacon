@@ -76,8 +76,10 @@ def pandas_to_tensor(variable):
     return torch.tensor(variable.values)
 
 def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
+    running_loss = 0
+    dataset_size = 0
+    
     model.train()
-    train_loss = 0
     for i in range(train_batch+1):
         start = i * batch_size
         end = start + batch_size
@@ -90,14 +92,19 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        train_loss += loss.item()
-    train_loss = train_loss/(train_batch+1)
+
+        output_size = len(label)
+        running_loss += loss.item()*output_size
+        dataset_size += output_size
+        train_loss = running_loss/dataset_size
+        
     print(f"train_loss : {train_loss}")
     
 def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
+    running_loss = 0
+    dataset_size = 0
+
     model.eval()
-    val_loss = 0
-    
     with torch.no_grad():
         for i in range(val_batch+1):
             start = i * batch_size
@@ -108,8 +115,12 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             input, label = input.to(device), label.to(device)
             outputs = model(input).squeeze()
             loss = criterion(outputs, label)
-            val_loss += loss.item()
-        val_loss = val_loss/(val_batch+1)
+
+            output_size = len(label)
+            running_loss += loss.item()*output_size
+            dataset_size += output_size
+            val_loss = running_loss/dataset_size
+
         print(f"val_loss : {val_loss}")
     return val_loss
     
