@@ -7,11 +7,10 @@ from torch import optim
 import torch
 
 import torch.nn as nn
-from torch.nn.modules.container import Sequential
+
+from sklearn.model_selection import KFold
 
 from tqdm import tqdm
-
-import gc
 
 import pandas as pd
 
@@ -49,12 +48,12 @@ class NeuralNet(nn.Module):
             layers.append(nn.Linear(value, value))
             layers.append(nn.ReLU(inplace=True))
         return nn.Sequential(*layers)
-    
+
 class RMSELoss(nn.Module):
     def __init__(self):
         super().__init__()
         self.mse = nn.MSELoss()
-        
+
     def forward(self, yhat, y):
         return torch.sqrt(self.mse(yhat, y))
 
@@ -81,7 +80,7 @@ def pandas_to_tensor(variable):
 def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
     running_loss = 0
     dataset_size = 0
-    
+
     model.train()
     for i in range(train_batch+1):
         
@@ -129,22 +128,20 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
 
     print(f"val_loss : {val_loss}")
 
-def datapreparation(train_df):
-    # shuffle
-    valset_ratio = 0.2
-    train_df = train_df.sample(frac=1)
+def datapreparation_with_FOLD(train_df_fold, val_df_fold):
 
-    train_df_X = train_df.filter(regex='X')
-    train_df_Y = train_df.filter(regex='Y')
+    train_X = train_df_fold.filter(regex='X')
+    train_Y = train_df_fold.filter(regex='Y')
 
-    valset_num = round(len(train_df_Y)*valset_ratio)
+    val_X = val_df_fold.filter(regex='X')
+    val_Y = val_df_fold.filter(regex='Y')
 
-    val_df_X = pandas_to_tensor(train_df_X.iloc[:valset_num])
-    val_df_Y = pandas_to_tensor(train_df_Y.iloc[:valset_num])    
-    train_df_X = pandas_to_tensor(train_df_X.iloc[valset_num:])
-    train_df_Y = pandas_to_tensor(train_df_Y.iloc[valset_num:])
+    train_X = pandas_to_tensor(train_X)
+    train_Y = pandas_to_tensor(train_Y)    
+    val_X = pandas_to_tensor(val_X)
+    val_Y = pandas_to_tensor(val_Y)
 
-    return train_df_X, train_df_Y, val_df_X, val_df_Y
+    return train_X, train_Y, val_X, val_Y
 
 def report_txt():
     f = open(CFG.outPath+'report.txt', 'a')
@@ -155,31 +152,29 @@ def report_txt():
     pass
 
 if __name__ == '__main__':
-    seedEverything(52)
+    seedEverything(42)
     train_df = pd.read_csv(CFG.trainPath)    
-    train_df_X, train_df_Y, val_df_X, val_df_Y = datapreparation(train_df)
+
+    train_X = train_df.filter(regex='X')
+    train_Y = train_df.filter(regex='Y')
+    train_X = pandas_to_tensor(train_X)
+    train_Y = pandas_to_tensor(train_Y)    
 
     model = NeuralNet()
     model = model.to(CFG.device)
-    optimizer = optim.Adam(model.parameters(),lr=0.0008121375255305587)
-    # criterion = nn.MSELoss().cuda()
+    optimizer = optim.Adam(model.parameters(),lr=0.0007810968322935946)
     criterion = RMSELoss().cuda()
 
-    num_epochs = 50
+    num_epochs = 98
     batch_size = 4096
-
-    train_batch = len(train_df_X) // batch_size
-    val_batch = len(val_df_X) // batch_size
-    gc.collect()
+    train_batch = len(train_X) // batch_size
 
     for epoch in range(num_epochs):
         print(f"epoch:{epoch}")
-        train_one_epoch(model, train_batch, criterion, optimizer, train_df_X, train_df_Y, CFG.device)
-        val_one_epoch(model, val_batch, criterion, val_df_X, val_df_Y, CFG.device)
-        # report_txt()
-
+        train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, CFG.device)
+        os.makedirs(CFG.weightsavePath, exist_ok=True)
+        
         torch.save(model.state_dict(), CFG.weightsavePath+f'{epoch}_neuralnet.pt')
-
         print('\n')
 
     # PATH = './weights/'
