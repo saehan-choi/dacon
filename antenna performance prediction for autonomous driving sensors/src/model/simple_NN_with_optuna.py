@@ -12,6 +12,8 @@ from optuna.trial import TrialState
 from sklearn.model_selection import KFold
 from sklearn.metrics import mean_squared_error
 
+# DROP 시킬것
+
 class CFG:
     dataPath = "antenna performance prediction for autonomous driving sensors/data/"
     trainPath = dataPath+'raw/train.csv'
@@ -172,7 +174,7 @@ def tunning(trial):
         lr = trial.suggest_float("lr", 1e-5, 1e-3)
         optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "SGD"])
         optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
-        
+
         criterion = lg_nrmse
 
         for epoch in range(num_epochs):
