@@ -38,7 +38,7 @@ def data_preprosessing(train_df, test_df):
 
     train_X = train_X.drop(['X_04', 'X_23', 'X_47', 'X_48'], axis=1)
     test_Y = test_df.drop(['X_04', 'X_23', 'X_47', 'X_48'], axis=1)
-
+    # ['X_04', 'X_23', 'X_47', 'X_48' , 'X_50', 'X_51','X_52','X_53','X_54','X_55','X_56'] 주혁님 out feature
     train_X, test_X, train_Y, test_Y = train_test_split(train_X, train_Y, test_size=0.2, random_state=42)
     train_X, val_X, train_Y, val_Y = train_test_split(train_X, train_Y, test_size=0.2, random_state=42)
 
