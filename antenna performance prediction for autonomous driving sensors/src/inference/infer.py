@@ -22,7 +22,7 @@ class CFG:
     weightsavePath = dataPath+'weights/'
     
     device = 'cuda'
-    
+
 def seedEverything(random_seed):
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed(random_seed)

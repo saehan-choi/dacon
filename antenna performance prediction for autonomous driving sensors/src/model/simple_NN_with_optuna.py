@@ -125,7 +125,7 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, batch_size, device)
 
             outputs = model(inputs).squeeze()
             loss = criterion(outputs, labels)
-            
+
             output_size = len(labels)
             running_loss += loss.item()*output_size
             dataset_size += output_size
@@ -151,7 +151,7 @@ def datapreparation_with_FOLD(train_df_fold, val_df_fold):
 
 def tunning(trial):
     seedEverything(42)
- 
+
     train_df = pd.read_csv(CFG.trainPath)    
     kfold = KFold(n_splits=5, shuffle=True)
     val_loss_sum = 0
