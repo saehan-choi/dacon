@@ -92,6 +92,7 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         input, label = input.to(device), label.to(device)
         outputs = model(input).squeeze()
         loss = criterion(outputs, label)
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -120,7 +121,6 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             input, label = input.to(device), label.to(device)
             outputs = model(input).squeeze()
             loss = criterion(outputs, label)
-
             output_size = len(label)
             running_loss += loss.item()*output_size
             dataset_size += output_size
