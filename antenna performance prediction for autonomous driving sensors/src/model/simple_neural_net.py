@@ -81,10 +81,8 @@ def pandas_to_tensor(variable):
 def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, device):
     running_loss = 0
     dataset_size = 0
-    
     model.train()
     for i in range(train_batch+1):
-        
         start = i * batch_size
         end = start + batch_size
         input = train_X[start:end].to(device, dtype=torch.float)
@@ -100,7 +98,7 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
         output_size = len(label)
         running_loss += loss.item()*output_size
         dataset_size += output_size
-        train_loss = running_loss/dataset_size
+    train_loss = running_loss/dataset_size
 
     # 이거 loss 구할때 batch로 나눠줘야함 지금 train_loss랑 val_loss랑 차이가 날수밖에없네
     print(f"train_loss : {train_loss}")
@@ -108,7 +106,6 @@ def train_one_epoch(model, train_batch, criterion, optimizer, train_X, train_Y, 
 def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
     running_loss = 0
     dataset_size = 0
-    
     model.eval()
     with torch.no_grad():
         val_loss = 0
@@ -125,9 +122,8 @@ def val_one_epoch(model, val_batch, criterion, val_X, val_Y, device):
             output_size = len(label)
             running_loss += loss.item()*output_size
             dataset_size += output_size
-            val_loss = running_loss/dataset_size
-
-    print(f"val_loss : {val_loss}")
+        val_loss = running_loss/dataset_size
+        print(f"val_loss : {val_loss}")
 
 def datapreparation(train_df):
     # shuffle
