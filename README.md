@@ -13,3 +13,10 @@
 
 
 ![image](https://user-images.githubusercontent.com/70372577/168946255-aec9d412-45ca-4279-afc5-bcd6c6a41caf.png)
+
+
+
+
+antenna plot list
+
+https://aromatic-rook-11d.notion.site/2022-08-15-KDE-plot-4bdeef11199f4942a5b5eef632db850c
