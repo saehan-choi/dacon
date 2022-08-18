@@ -82,7 +82,7 @@ for i in range(1, 15):
 
     automl = AutoML()
     settings = {
-        "time_budget": 400,  # total running time in seconds
+        "time_budget": 30000,  # total running time in seconds
         # "time_budget": 6200s -> spend 1 day,  # total running time in seconds
         # "gpu_per_trial":0.1,
         "metric": 'rmse',  # primary metrics for regression can be chosen from: ['mae','mse','r2']

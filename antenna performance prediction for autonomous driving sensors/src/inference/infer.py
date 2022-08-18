@@ -22,7 +22,7 @@ class CFG:
     weightsavePath = dataPath+'weights/'
     
     device = 'cuda'
-    
+
 def seedEverything(random_seed):
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed(random_seed)
@@ -115,7 +115,7 @@ if __name__ == '__main__':
     test_df_X = testdata_prepation(test_df)
     
     # weight_name = '179_neuralnet.pt' -> 1.82 best val set
-    weight_name = '49_neuralnet.pt'
+    weight_name = '97_neuralnet.pt'
     
     model = model_import(weight_name)
 
@@ -126,6 +126,7 @@ if __name__ == '__main__':
     
     output = output.detach().cpu().numpy()
     
+    os.makedirs(CFG.outPath, exist_ok=True)
     submission = submission_report(output)
     submission.to_csv(CFG.outPath+'submit_nn.csv', index=False)
 

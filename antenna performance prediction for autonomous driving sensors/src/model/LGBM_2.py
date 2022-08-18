@@ -71,9 +71,9 @@ def data_preprosessing(train_df, test_df):
     # RF_AMOUNT = ['X_50', 'X_51', 'X_52', 'X_53', 'X_54', 'X_55', 'X_56']
 
     train_Y = train_df.filter(regex='Y') # Output : Y Feature
-    # train_X = train_X.drop(['X_04', 'X_23', 'X_47', 'X_48', 'X_49', 'X_50', 'X_51', 'X_52', 'X_53', 'X_54', 'X_55', 'X_56'], axis=1)
+    train_X = train_X.drop(['X_04', 'X_23', 'X_47', 'X_48', 'X_50', 'X_51', 'X_52', 'X_53', 'X_54', 'X_55', 'X_56'], axis=1)
     # train_X = train_X.drop(['X_04', 'X_10', 'X_11', 'X_23', 'X_46', 'X_47', 'X_48', 'N_01', 'N_02',  ], axis=1)
-    # test_X = test_df.drop(['X_04', 'X_23', 'X_47', 'X_48', 'X_49', 'X_50', 'X_51', 'X_52', 'X_53', 'X_54', 'X_55', 'X_56'], axis=1)
+    test_X = test_df.drop(['X_04', 'X_23', 'X_47', 'X_48', 'X_50', 'X_51', 'X_52', 'X_53', 'X_54', 'X_55', 'X_56'], axis=1)
     # print(test_df)
     # test_X = test_df.drop(['X_04', 'X_10', 'X_11', 'X_23', 'X_46', 'X_47', 'X_48'], axis=1)
 
@@ -103,7 +103,7 @@ for i in range(1, 15):
 
     automl = AutoML()
     settings = {
-        "time_budget": 400,  # total running time in seconds
+        "time_budget": 30000,  # total running time in seconds
         # "time_budget": 6200s -> spend 1 day,  # total running time in seconds
         # "gpu_per_trial":0.1,
         "metric": 'rmse',  # primary metrics for regression can be chosen from: ['mae','mse','r2']
